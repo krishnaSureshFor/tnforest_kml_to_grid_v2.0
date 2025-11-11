@@ -388,7 +388,8 @@ def build_pdf_report_standard(
 
     # Note
     pdf.set_y(legend_y + 47)
-    pdf.set_font("Helvetica", "I", 9); pdf.set_text_color(80, 80, 80)
+    pdf.set_font("Helvetica", "I", 9)
+    pdf.set_text_color(80, 80, 80)
     pdf.multi_cell(0, 5, "Note: Satellite background (Esri) and boundaries are automatically generated. Developed by Rasipuram Range.")
     pdf.set_text_color(0, 0, 0)
 
@@ -400,7 +401,8 @@ def build_pdf_report_standard(
         pdf.set_font("Helvetica", "B", 11)
         pdf.cell(25, 8, "S.No", 1, align="C")
         pdf.cell(75, 8, "Latitude", 1, align="C")
-        pdf.cell(75, 8, "Longitude", 1, align="C"); pdf.ln(8)
+        pdf.cell(75, 8, "Longitude", 1, align="C")
+        pdf.ln(8)
         pdf.set_font("Helvetica", "", 10)
 
         row = 1
@@ -429,29 +431,30 @@ def build_pdf_report_standard(
                     pdf.ln(8)
                     pdf.set_font("Helvetica", "", 10)
 
-    # Output bytes
-    result = pdf.output(dest="S")
     # --- Embed QR + link to online viewer ---
     try:
-                from streamlit_app import save_kml_for_viewer, make_qr_code
-                kml_id, kml_path = save_kml_for_viewer(labeled_kml)
-                viewer_url = f"https://krishnaSureshFor.github.io/tnforest-kml-grid/viewer/?id={kml_id}"
-        
-                qr_img = make_qr_code(viewer_url)
-                qr_temp = os.path.join(tempfile.gettempdir(), "qr_temp.png")
-                with open(qr_temp, "wb") as f:
-                    f.write(qr_img.read())
-        
-                pdf.image(qr_temp, x=165, y=legend_y + 5, w=30)
-                pdf.set_xy(15, legend_y + 95)
-                pdf.set_font("Helvetica", "I", 10)
-                pdf.cell(0, 10, "Scan QR to view grid on map", ln=1)
-                pdf.set_text_color(0, 0, 255)
-                pdf.set_font("Helvetica", "U", 9)
-                pdf.cell(0, 8, viewer_url, ln=1, align="C", link=viewer_url)
-                pdf.set_text_color(0, 0, 0)
-            except Exception as e:
-                print("QR embed failed:", e)
+        from streamlit_app import save_kml_for_viewer, make_qr_code
+        kml_id, kml_path = save_kml_for_viewer(labeled_kml)
+        viewer_url = f"https://krishnaSureshFor.github.io/tnforest-kml-grid/viewer/?id={kml_id}"
+
+        qr_img = make_qr_code(viewer_url)
+        qr_temp = os.path.join(tempfile.gettempdir(), "qr_temp.png")
+        with open(qr_temp, "wb") as f:
+            f.write(qr_img.read())
+
+        pdf.image(qr_temp, x=165, y=legend_y + 5, w=30)
+        pdf.set_xy(15, legend_y + 95)
+        pdf.set_font("Helvetica", "I", 10)
+        pdf.cell(0, 10, "Scan QR to view grid on map", ln=1)
+        pdf.set_text_color(0, 0, 255)
+        pdf.set_font("Helvetica", "U", 9)
+        pdf.cell(0, 8, viewer_url, ln=1, align="C", link=viewer_url)
+        pdf.set_text_color(0, 0, 0)
+    except Exception as e:
+        print("QR embed failed:", e)
+
+    # Output bytes
+    result = pdf.output(dest="S")
     return bytes(result) if isinstance(result, (bytes, bytearray)) else result.encode("latin1", errors="ignore")
 # ================================================================
 # MAIN APP CONTROL FLOW — Runs only on Generate
@@ -623,6 +626,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
