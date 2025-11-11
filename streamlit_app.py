@@ -450,7 +450,12 @@ def build_pdf_report_standard(
         # -------------------------------
     # QR Code — below GPS table (left side, direct memory)
     # -------------------------------
+        # -------------------------------
+    # QR Code — crisp, sharp, left side below table
+    # -------------------------------
     try:
+        from PIL import Image
+
         # --- Save KML for viewer ---
         if labeled_kml:
             kml_id = str(uuid.uuid4())[:8]
@@ -463,16 +468,20 @@ def build_pdf_report_standard(
         else:
             viewer_url = "https://krishnaSureshFor.github.io/tnforest_kml_to_grid_v2.0"
 
-        # --- Generate QR image directly in memory ---
-        qr = qrcode.QRCode(box_size=5, border=2)
+        # --- Generate crisp QR ---
+        qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)
         qr.add_data(viewer_url)
         qr.make(fit=True)
-        img = qr.make_image(fill_color="black", back_color="white")
+        img = qr.make_image(fill_color="black", back_color="white").convert("1")
 
-        # Save QR into in-memory PNG
-        qr_buf = BytesIO()
-        img.save(qr_buf, format="PNG")
-        qr_buf.seek(0)
+        # Enlarge to a fixed high-res size (~500×500 px)
+        target_size = (500, 500)
+        img = img.resize(target_size, Image.NEAREST)
+
+        # Save to buffer
+        buf = BytesIO()
+        img.save(buf, format="PNG", optimize=True)
+        buf.seek(0)
 
         # --- Position below table ---
         y_pos = pdf.get_y() + 12
@@ -485,15 +494,15 @@ def build_pdf_report_standard(
         pdf.set_text_color(0, 0, 0)
         pdf.text(20, y_pos, "Scan QR to View KML File:")
 
-        # --- Embed QR from memory ---
-        pdf.image(qr_buf, x=20, y=y_pos + 5, w=35, h=35, type="PNG")
+        # --- Place sharp QR image (40 mm) ---
+        pdf.image(buf, x=20, y=y_pos + 5, w=40, h=40, type="PNG")
 
-        # --- Border around QR ---
+        # --- Draw clean black border ---
         pdf.set_draw_color(0, 0, 0)
-        pdf.rect(19, y_pos + 4, 37, 37)
+        pdf.rect(19, y_pos + 4, 42, 42)
 
-        # --- Clickable URL ---
-        pdf.set_xy(20, y_pos + 42)
+        # --- Clickable link below ---
+        pdf.set_xy(20, y_pos + 47)
         pdf.set_font("Helvetica", "U", 9)
         pdf.set_text_color(0, 0, 255)
         pdf.cell(0, 8, viewer_url, link=viewer_url)
@@ -504,7 +513,6 @@ def build_pdf_report_standard(
         pdf.set_text_color(255, 0, 0)
         pdf.cell(0, 10, f"QR generation failed: {e}", ln=1, align="C")
         pdf.set_text_color(0, 0, 0)
-
     # -------------------------------
     # Final output
     # -------------------------------
@@ -682,6 +690,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
