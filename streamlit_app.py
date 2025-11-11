@@ -12,6 +12,30 @@ import matplotlib.pyplot as plt
 import contextily as ctx
 from lxml import etree
 import fiona
+import uuid, os, qrcode
+from io import BytesIO
+
+def save_kml_for_viewer(kml_text):
+    """Save KML with unique ID to public_kml folder for permanent hosting."""
+    kml_id = str(uuid.uuid4())[:8]  # short unique ID
+    out_dir = os.path.join("public_kml")
+    os.makedirs(out_dir, exist_ok=True)
+    kml_path = os.path.join(out_dir, f"{kml_id}.kml")
+    with open(kml_path, "w", encoding="utf-8") as f:
+        f.write(kml_text)
+    return kml_id, kml_path
+
+
+def make_qr_code(url):
+    """Return QR code image (as BytesIO)."""
+    qr = qrcode.QRCode(box_size=3, border=2)
+    qr.add_data(url)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    buf = BytesIO()
+    img.save(buf, format="PNG")
+    buf.seek(0)
+    return buf
 
 # ================================================================
 # APP CONFIG + THEME
@@ -407,6 +431,27 @@ def build_pdf_report_standard(
 
     # Output bytes
     result = pdf.output(dest="S")
+    # --- Embed QR + link to online viewer ---
+    try:
+                from streamlit_app import save_kml_for_viewer, make_qr_code
+                kml_id, kml_path = save_kml_for_viewer(labeled_kml)
+                viewer_url = f"https://krishnaSureshFor.github.io/tnforest-kml-grid/viewer/?id={kml_id}"
+        
+                qr_img = make_qr_code(viewer_url)
+                qr_temp = os.path.join(tempfile.gettempdir(), "qr_temp.png")
+                with open(qr_temp, "wb") as f:
+                    f.write(qr_img.read())
+        
+                pdf.image(qr_temp, x=165, y=legend_y + 5, w=30)
+                pdf.set_xy(15, legend_y + 95)
+                pdf.set_font("Helvetica", "I", 10)
+                pdf.cell(0, 10, "Scan QR to view grid on map", ln=1)
+                pdf.set_text_color(0, 0, 255)
+                pdf.set_font("Helvetica", "U", 9)
+                pdf.cell(0, 8, viewer_url, ln=1, align="C", link=viewer_url)
+                pdf.set_text_color(0, 0, 0)
+            except Exception as e:
+                print("QR embed failed:", e)
     return bytes(result) if isinstance(result, (bytes, bytearray)) else result.encode("latin1", errors="ignore")
 # ================================================================
 # MAIN APP CONTROL FLOW — Runs only on Generate
@@ -578,5 +623,6 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
