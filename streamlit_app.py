@@ -447,6 +447,9 @@ def build_pdf_report_standard(
     # -------------------------------
     # QR Code — below GPS table (left side) with border
     # -------------------------------
+        # -------------------------------
+    # QR Code — below GPS table (left side, direct memory)
+    # -------------------------------
     try:
         # --- Save KML for viewer ---
         if labeled_kml:
@@ -460,18 +463,16 @@ def build_pdf_report_standard(
         else:
             viewer_url = "https://krishnaSureshFor.github.io/tnforest_kml_to_grid_v2.0"
 
-        # --- Create high-contrast QR ---
+        # --- Generate QR image directly in memory ---
         qr = qrcode.QRCode(box_size=5, border=2)
         qr.add_data(viewer_url)
         qr.make(fit=True)
         img = qr.make_image(fill_color="black", back_color="white")
-        buf = BytesIO()
-        img.save(buf, format="PNG")
-        buf.seek(0)
 
-        qr_temp = os.path.join(tempfile.gettempdir(), "qr_temp.png")
-        with open(qr_temp, "wb") as f:
-            f.write(buf.read())
+        # Save QR into in-memory PNG
+        qr_buf = BytesIO()
+        img.save(qr_buf, format="PNG")
+        qr_buf.seek(0)
 
         # --- Position below table ---
         y_pos = pdf.get_y() + 12
@@ -484,13 +485,14 @@ def build_pdf_report_standard(
         pdf.set_text_color(0, 0, 0)
         pdf.text(20, y_pos, "Scan QR to View KML File:")
 
-        # --- Draw QR image ---
-        pdf.image(qr_temp, x=20, y=y_pos + 5, w=35, h=35)
-        # Add thin border
-        pdf.set_draw_color(0, 0, 0)
-        pdf.rect(20 - 1, y_pos + 5 - 1, 35 + 2, 35 + 2)
+        # --- Embed QR from memory ---
+        pdf.image(qr_buf, x=20, y=y_pos + 5, w=35, h=35, type="PNG")
 
-        # --- Clickable link ---
+        # --- Border around QR ---
+        pdf.set_draw_color(0, 0, 0)
+        pdf.rect(19, y_pos + 4, 37, 37)
+
+        # --- Clickable URL ---
         pdf.set_xy(20, y_pos + 42)
         pdf.set_font("Helvetica", "U", 9)
         pdf.set_text_color(0, 0, 255)
@@ -680,6 +682,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
