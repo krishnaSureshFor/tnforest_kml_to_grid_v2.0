@@ -360,10 +360,10 @@ def build_pdf_report_standard(
     fig, ax = plt.subplots(figsize=(7, 5.8))
     merged_gdf = gpd.GeoSeries([merged_ll], crs="EPSG:4326").to_crs(3857)
     grid_gdf = gpd.GeoSeries(cells_ll, crs="EPSG:4326").to_crs(3857)
-    merged_gdf.boundary.plot(ax=ax, color="red", linewidth=3)            # AOI 3px red
-    grid_gdf.boundary.plot(ax=ax, color="red", linewidth=1)              # Grid 1px red
+    merged_gdf.boundary.plot(ax=ax, color="red", linewidth=3)
+    grid_gdf.boundary.plot(ax=ax, color="red", linewidth=1)
     if overlay_gdf is not None and not overlay_gdf.empty:
-        overlay_gdf.to_crs(3857).boundary.plot(ax=ax, color="#FFD700", linewidth=3)  # Overlay gold 3px
+        overlay_gdf.to_crs(3857).boundary.plot(ax=ax, color="#FFD700", linewidth=3)
     ctx.add_basemap(ax, crs=3857, source=ctx.providers.Esri.WorldImagery)
     ax.axis("off")
     plt.tight_layout(pad=0.1)
@@ -403,8 +403,8 @@ def build_pdf_report_standard(
     # -------------------------------
     # Page 2 — GPS Table (if overlay)
     # -------------------------------
+    pdf.add_page()
     if overlay_gdf is not None and not overlay_gdf.empty:
-        pdf.add_page()
         pdf.set_font("Helvetica", "B", 12)
         pdf.cell(0, 10, "Corner GPS of Overlay Area", ln=1, align="C")
         pdf.set_font("Helvetica", "B", 11)
@@ -431,7 +431,7 @@ def build_pdf_report_standard(
                 pdf.cell(75, 7, f"{lon:.6f}", 1, align="R")
                 pdf.ln(7)
                 row += 1
-                if pdf.get_y() > 265:
+                if pdf.get_y() > 240:
                     pdf.add_page()
                     pdf.set_font("Helvetica", "B", 11)
                     pdf.cell(25, 8, "S.No", 1, align="C")
@@ -441,13 +441,9 @@ def build_pdf_report_standard(
                     pdf.set_font("Helvetica", "", 10)
 
     # -------------------------------
-    # LAST PAGE — QR Code + Viewer Link
+    # QR Code (fits bottom-right corner of last page)
     # -------------------------------
     try:
-        pdf.add_page()
-        pdf.set_font("Helvetica", "B", 14)
-        pdf.cell(0, 15, "📷 Scan QR to View KML File", ln=1, align="C")
-
         # --- Save KML for viewer ---
         if labeled_kml:
             kml_id = str(uuid.uuid4())[:8]
@@ -456,13 +452,12 @@ def build_pdf_report_standard(
             kml_path = os.path.join(out_dir, f"{kml_id}.kml")
             with open(kml_path, "w", encoding="utf-8") as f:
                 f.write(labeled_kml)
-            # ✅ Updated URL for new repo
             viewer_url = f"https://krishnaSureshFor.github.io/tnforest_kml_to_grid_v2.0/viewer/?id={kml_id}"
         else:
             viewer_url = "https://krishnaSureshFor.github.io/tnforest_kml_to_grid_v2.0"
 
-        # --- Create QR image ---
-        qr = qrcode.QRCode(box_size=8, border=2)
+        # --- Create smaller QR image ---
+        qr = qrcode.QRCode(box_size=3, border=1)
         qr.add_data(viewer_url)
         qr.make(fit=True)
         img = qr.make_image(fill_color="black", back_color="white")
@@ -474,17 +469,22 @@ def build_pdf_report_standard(
         with open(qr_temp, "wb") as f:
             f.write(buf.read())
 
-        # --- Place QR + link ---
-        pdf.image(qr_temp, x=75, y=60, w=60)
-        pdf.set_y(130)
+        # --- Place QR bottom-right corner of current (last) page ---
+        y_pos = pdf.get_y() + 10
+        if y_pos > 220:
+            y_pos = 220  # keep it within visible range
+
+        pdf.set_font("Helvetica", "B", 11)
+        pdf.text(145, y_pos - 5, "📷 Scan QR to View KML File")
+        pdf.image(qr_temp, x=155, y=y_pos, w=35)
         pdf.set_text_color(0, 0, 255)
-        pdf.set_font("Helvetica", "U", 11)
-        pdf.cell(0, 10, viewer_url, ln=1, align="C", link=viewer_url)
+        pdf.set_font("Helvetica", "U", 8)
+        pdf.set_xy(15, y_pos + 35)
+        pdf.cell(0, 8, viewer_url, align="C", link=viewer_url)
         pdf.set_text_color(0, 0, 0)
 
     except Exception as e:
-        pdf.add_page()
-        pdf.set_font("Helvetica", "I", 12)
+        pdf.set_font("Helvetica", "I", 10)
         pdf.set_text_color(255, 0, 0)
         pdf.cell(0, 10, f"QR generation failed: {e}", ln=1, align="C")
         pdf.set_text_color(0, 0, 0)
@@ -666,6 +666,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
