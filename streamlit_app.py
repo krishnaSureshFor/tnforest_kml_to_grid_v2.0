@@ -32,9 +32,17 @@ def make_qr_code(url):
     qr.add_data(url)
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white")
+    # --- Prepare exact physical size (~300 px = 40 mm @ 190 DPI) ---
+    target_px = 300
+    img = img.resize((target_px, target_px), Image.NEAREST)
+    
+    # --- Save crisp 8-bit RGB PNG ---
     buf = BytesIO()
-    img.save(buf, format="PNG")
+    img.convert("RGB").save(buf, format="PNG", dpi=(190, 190))
     buf.seek(0)
+    
+    # --- Place at native DPI so FPDF won't rescale ---
+    pdf.image(buf, x=20, y=y_pos + 5, w=40)
     return buf
 
 # ================================================================
@@ -691,6 +699,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
