@@ -455,7 +455,10 @@ def build_pdf_report_standard(
         # -------------------------------
     # QR Code — crisp, sharp, left side below table
     # -------------------------------
-    y_pos = pdf.get_y()  # ✅ ensures variable is defined
+        # -------------------------------
+    # QR Code — below GPS table (clean, final version)
+    # -------------------------------
+    y_pos = pdf.get_y()
     try:
         from PIL import Image
 
@@ -471,50 +474,35 @@ def build_pdf_report_standard(
         else:
             viewer_url = "https://krishnaSureshFor.github.io/tnforest_kml_to_grid_v2.0"
 
-        # --- Create crisp RGB QR image ---
-        from PIL import Image
-        
+        # --- Generate high-quality QR ---
         qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)
         qr.add_data(viewer_url)
         qr.make(fit=True)
         img = qr.make_image(fill_color="black", back_color="white").convert("RGB")
-        
-        # Make it physically ~38 mm wide at 300 DPI (≈450 px)
+
+        # Resize to physical 38 mm (~450 px @ 300 DPI)
         px = 450
         img = img.resize((px, px), Image.NEAREST)
-        
-        # Save to memory WITHOUT compression
+
         buf = BytesIO()
         img.save(buf, format="PNG", compress_level=0, dpi=(300, 300))
         buf.seek(0)
-        
-        # --- Insert into PDF ---
-        pdf.image(buf, x=20, y=y_pos + 5, w=38, type="PNG")
-        
-        # --- Draw clean border ---
-        pdf.set_draw_color(0, 0, 0)
-        pdf.rect(19, y_pos + 4, 40, 40)
 
-
-        # --- Position below table ---
+        # Position and place
         y_pos = pdf.get_y() + 12
         if y_pos > 230:
             pdf.add_page()
             y_pos = 30
 
-        # --- Heading ---
         pdf.set_font("Helvetica", "B", 11)
         pdf.set_text_color(0, 0, 0)
         pdf.text(20, y_pos, "Scan QR to View KML File:")
 
-        # --- Place sharp QR image (40 mm) ---
-        pdf.image(buf, x=20, y=y_pos + 5, w=40, h=40, type="PNG")
+        pdf.image(buf, x=20, y=y_pos + 5, w=38, type="PNG")
 
-        # --- Draw clean black border ---
         pdf.set_draw_color(0, 0, 0)
-        pdf.rect(19, y_pos + 4, 42, 42)
+        pdf.rect(19, y_pos + 4, 40, 40)
 
-        # --- Clickable link below ---
         pdf.set_xy(20, y_pos + 47)
         pdf.set_font("Helvetica", "U", 9)
         pdf.set_text_color(0, 0, 255)
@@ -703,6 +691,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
