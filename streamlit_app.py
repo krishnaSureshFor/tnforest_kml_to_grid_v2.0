@@ -530,10 +530,11 @@ def generate_all_outputs(aoi_path, overlay_path, user_inputs, cell_size, title_t
 
     grid_only_kml = generate_grid_only_kml(cells_ll, merged_ll, user_inputs)
     labeled_kml = generate_labeled_kml(cells_ll, merged_ll, user_inputs, overlay_gdf)
+
     pdf_bytes = build_pdf_report_standard(
-        cells_ll, merged_ll, user_inputs, cell_size, overlay_gdf,
-        title_text, density, area_invasive,
-        labeled_kml=labeled_kml  # 👈 pass the labeled KML text here
+        cells_ll, merged_ll, user_inputs, cell_size,
+        overlay_gdf, title_text, density, area_invasive,
+        labeled_kml=labeled_kml  # ✅ new argument added here
     )
 
     return {
@@ -666,6 +667,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
