@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Forest Grid Map Viewer</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-omnivore/leaflet-omnivore.min.js"></script>
+  <style>
+    html, body, #map { height: 100%; margin: 0; padding: 0; }
+    #header {
+      position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9); padding: 8px 16px;
+      border-radius: 10px; font-family: Arial; font-size: 16px;
+      font-weight: 600; color: #2b9348; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <div id="header">🌿 Forest Department — Grid Viewer</div>
+  <div id="map"></div>
+
+  <script>
+    // --- Parse ID from URL ---
+    const params = new URLSearchParams(window.location.search);
+    const fileId = params.get('id');
+
+    // --- Map setup ---
+    const map = L.map('map').setView([11.3, 78.5], 10);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '&copy; Esri — Satellite Imagery'
+    }).addTo(map);
+
+    if (fileId) {
+      const kmlUrl = `https://krishnaSureshFor.github.io/tnforest-kml-grid/public_kml/${fileId}.kml`;
+      omnivore.kml(kmlUrl)
+        .on('ready', function() {
+          map.fitBounds(this.getBounds());
+        })
+        .addTo(map);
+    } else {
+      alert("❌ Invalid or missing KML ID");
+    }
+  </script>
+</body>
+</html>
