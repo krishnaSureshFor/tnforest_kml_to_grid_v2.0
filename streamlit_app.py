@@ -469,19 +469,19 @@ def build_pdf_report_standard(
             viewer_url = "https://krishnaSureshFor.github.io/tnforest_kml_to_grid_v2.0"
 
         # --- Generate crisp QR ---
+        from PIL import Image
+        
         qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)
         qr.add_data(viewer_url)
         qr.make(fit=True)
-        img = qr.make_image(fill_color="black", back_color="white").convert("1")
-
-        # Enlarge to a fixed high-res size (~500×500 px)
-        target_size = (500, 500)
-        img = img.resize(target_size, Image.NEAREST)
-
-        # Save to buffer
+        img = qr.make_image(fill_color="black", back_color="white").convert("RGB")  # ✅ fixed
+        
+        img = img.resize((500, 500), Image.NEAREST)
+        
         buf = BytesIO()
         img.save(buf, format="PNG", optimize=True)
         buf.seek(0)
+        pdf.image(buf, x=20, y=y_pos + 5, w=40, h=40, type="PNG")
 
         # --- Position below table ---
         y_pos = pdf.get_y() + 12
@@ -690,6 +690,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
