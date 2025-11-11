@@ -332,29 +332,6 @@ def build_pdf_report_standard(
     MAP_X, MAP_Y, MAP_W, MAP_H, LEGEND_GAP = 15, 55, 180, 145, 8
     EMBLEM_PATH = os.path.join(os.path.dirname(__file__), "tn_emblem.png")
 
-    # -------------------------------
-    # Helper: Generate and save QR
-    # -------------------------------
-    def save_kml_for_viewer(kml_text):
-        """Save KML with unique ID in /public_kml/ folder."""
-        kml_id = str(uuid.uuid4())[:8]
-        out_dir = os.path.join("public_kml")
-        os.makedirs(out_dir, exist_ok=True)
-        kml_path = os.path.join(out_dir, f"{kml_id}.kml")
-        with open(kml_path, "w", encoding="utf-8") as f:
-            f.write(kml_text)
-        return kml_id, kml_path
-
-    def make_qr_code(url):
-        qr = qrcode.QRCode(box_size=3, border=2)
-        qr.add_data(url)
-        qr.make(fit=True)
-        img = qr.make_image(fill_color="black", back_color="white")
-        buf = BytesIO()
-        img.save(buf, format="PNG")
-        buf.seek(0)
-        return buf
-
     class PDF(FPDF):
         def footer(self):
             self.set_y(-15)
@@ -383,10 +360,10 @@ def build_pdf_report_standard(
     fig, ax = plt.subplots(figsize=(7, 5.8))
     merged_gdf = gpd.GeoSeries([merged_ll], crs="EPSG:4326").to_crs(3857)
     grid_gdf = gpd.GeoSeries(cells_ll, crs="EPSG:4326").to_crs(3857)
-    merged_gdf.boundary.plot(ax=ax, color="red", linewidth=3)
-    grid_gdf.boundary.plot(ax=ax, color="red", linewidth=1)
+    merged_gdf.boundary.plot(ax=ax, color="red", linewidth=3)            # AOI 3px red
+    grid_gdf.boundary.plot(ax=ax, color="red", linewidth=1)              # Grid 1px red
     if overlay_gdf is not None and not overlay_gdf.empty:
-        overlay_gdf.to_crs(3857).boundary.plot(ax=ax, color="#FFD700", linewidth=3)
+        overlay_gdf.to_crs(3857).boundary.plot(ax=ax, color="#FFD700", linewidth=3)  # Overlay gold 3px
     ctx.add_basemap(ax, crs=3857, source=ctx.providers.Esri.WorldImagery)
     ax.axis("off")
     plt.tight_layout(pad=0.1)
@@ -394,7 +371,7 @@ def build_pdf_report_standard(
     plt.close(fig)
     pdf.image(map_img, x=MAP_X, y=MAP_Y, w=MAP_W, h=MAP_H)
 
-    # Legend box
+    # Legend
     legend_y = MAP_Y + MAP_H + LEGEND_GAP
     pdf.set_y(legend_y)
     pdf.set_fill_color(245, 245, 240)
@@ -467,28 +444,50 @@ def build_pdf_report_standard(
     # LAST PAGE — QR Code + Viewer Link
     # -------------------------------
     try:
-        if labeled_kml is not None:
-            kml_id, _ = save_kml_for_viewer(labeled_kml)
-            viewer_url = f"https://krishnasureshfor.github.io/tnforest_kml_to_grid_v2.0/viewer/?id={kml_id}"
+        pdf.add_page()
+        pdf.set_font("Helvetica", "B", 14)
+        pdf.cell(0, 15, "📷 Scan QR to View KML File", ln=1, align="C")
 
-            qr_img = make_qr_code(viewer_url)
-            qr_temp = os.path.join(tempfile.gettempdir(), "qr_temp.png")
-            with open(qr_temp, "wb") as f:
-                f.write(qr_img.read())
+        # --- Save KML for viewer ---
+        if labeled_kml:
+            kml_id = str(uuid.uuid4())[:8]
+            out_dir = os.path.join(os.getcwd(), "public_kml")
+            os.makedirs(out_dir, exist_ok=True)
+            kml_path = os.path.join(out_dir, f"{kml_id}.kml")
+            with open(kml_path, "w", encoding="utf-8") as f:
+                f.write(labeled_kml)
+            # ✅ Updated URL for new repo
+            viewer_url = f"https://krishnaSureshFor.github.io/tnforest_kml_to_grid_v2.0/viewer/?id={kml_id}"
+        else:
+            viewer_url = "https://krishnaSureshFor.github.io/tnforest_kml_to_grid_v2.0"
 
-            # Add final page for QR
-            pdf.add_page()
-            pdf.set_font("Helvetica", "B", 14)
-            pdf.cell(0, 15, "📷 Scan QR to View KML File", ln=1, align="C")
+        # --- Create QR image ---
+        qr = qrcode.QRCode(box_size=8, border=2)
+        qr.add_data(viewer_url)
+        qr.make(fit=True)
+        img = qr.make_image(fill_color="black", back_color="white")
+        buf = BytesIO()
+        img.save(buf, format="PNG")
+        buf.seek(0)
 
-            pdf.image(qr_temp, x=80, y=50, w=50)
-            pdf.set_y(110)
-            pdf.set_text_color(0, 0, 255)
-            pdf.set_font("Helvetica", "U", 10)
-            pdf.cell(0, 10, viewer_url, ln=1, align="C", link=viewer_url)
-            pdf.set_text_color(0, 0, 0)
+        qr_temp = os.path.join(tempfile.gettempdir(), "qr_temp.png")
+        with open(qr_temp, "wb") as f:
+            f.write(buf.read())
+
+        # --- Place QR + link ---
+        pdf.image(qr_temp, x=75, y=60, w=60)
+        pdf.set_y(130)
+        pdf.set_text_color(0, 0, 255)
+        pdf.set_font("Helvetica", "U", 11)
+        pdf.cell(0, 10, viewer_url, ln=1, align="C", link=viewer_url)
+        pdf.set_text_color(0, 0, 0)
+
     except Exception as e:
-        print("QR generation failed:", e)
+        pdf.add_page()
+        pdf.set_font("Helvetica", "I", 12)
+        pdf.set_text_color(255, 0, 0)
+        pdf.cell(0, 10, f"QR generation failed: {e}", ln=1, align="C")
+        pdf.set_text_color(0, 0, 0)
 
     # -------------------------------
     # Final output
@@ -667,6 +666,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
