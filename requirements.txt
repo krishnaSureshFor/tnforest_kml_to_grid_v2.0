@@ -36,6 +36,4 @@ requests
 pyproj
 shapely
 pillow
-
-
-
+qrcode[pil]
