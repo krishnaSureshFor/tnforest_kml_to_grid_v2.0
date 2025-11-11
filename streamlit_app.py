@@ -472,10 +472,10 @@ def build_pdf_report_standard(
         # --- Place QR bottom-right corner of current (last) page ---
         y_pos = pdf.get_y() + 10
         if y_pos > 220:
-            y_pos = 220  # keep it within visible range
+            y_pos = 220
 
         pdf.set_font("Helvetica", "B", 11)
-        pdf.text(145, y_pos - 5, "📷 Scan QR to View KML File")
+        pdf.text(145, y_pos - 5, "Scan QR to View KML File")  # ✅ no emoji
         pdf.image(qr_temp, x=155, y=y_pos, w=35)
         pdf.set_text_color(0, 0, 255)
         pdf.set_font("Helvetica", "U", 8)
@@ -486,7 +486,7 @@ def build_pdf_report_standard(
     except Exception as e:
         pdf.set_font("Helvetica", "I", 10)
         pdf.set_text_color(255, 0, 0)
-        pdf.cell(0, 10, f"QR generation failed: {e}", ln=1, align="C")
+        pdf.cell(0, 10, f"QR generation failed: {e}", align="C")
         pdf.set_text_color(0, 0, 0)
 
     # -------------------------------
@@ -666,6 +666,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
