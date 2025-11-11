@@ -371,7 +371,7 @@ def build_pdf_report_standard(
     plt.close(fig)
     pdf.image(map_img, x=MAP_X, y=MAP_Y, w=MAP_W, h=MAP_H)
 
-    # Legend
+    # Legend box
     legend_y = MAP_Y + MAP_H + LEGEND_GAP
     pdf.set_y(legend_y)
     pdf.set_fill_color(245, 245, 240)
@@ -397,7 +397,11 @@ def build_pdf_report_standard(
     pdf.set_y(legend_y + 47)
     pdf.set_font("Helvetica", "I", 9)
     pdf.set_text_color(80, 80, 80)
-    pdf.multi_cell(0, 5, "Note: Satellite background (Esri) and boundaries are automatically generated. Developed by Rasipuram Range.")
+    pdf.multi_cell(
+        0,
+        5,
+        "Note: Satellite background (Esri) and boundaries are automatically generated. Developed by Rasipuram Range.",
+    )
     pdf.set_text_color(0, 0, 0)
 
     # -------------------------------
@@ -441,7 +445,7 @@ def build_pdf_report_standard(
                     pdf.set_font("Helvetica", "", 10)
 
     # -------------------------------
-    # QR Code (fits bottom-right corner of last page)
+    # QR Code — below GPS table (left side) with border
     # -------------------------------
     try:
         # --- Save KML for viewer ---
@@ -456,8 +460,8 @@ def build_pdf_report_standard(
         else:
             viewer_url = "https://krishnaSureshFor.github.io/tnforest_kml_to_grid_v2.0"
 
-        # --- Create smaller QR image ---
-        qr = qrcode.QRCode(box_size=3, border=1)
+        # --- Create high-contrast QR ---
+        qr = qrcode.QRCode(box_size=5, border=2)
         qr.add_data(viewer_url)
         qr.make(fit=True)
         img = qr.make_image(fill_color="black", back_color="white")
@@ -469,24 +473,34 @@ def build_pdf_report_standard(
         with open(qr_temp, "wb") as f:
             f.write(buf.read())
 
-        # --- Place QR bottom-right corner of current (last) page ---
-        y_pos = pdf.get_y() + 10
-        if y_pos > 220:
-            y_pos = 220
+        # --- Position below table ---
+        y_pos = pdf.get_y() + 12
+        if y_pos > 230:
+            pdf.add_page()
+            y_pos = 30
 
+        # --- Heading ---
         pdf.set_font("Helvetica", "B", 11)
-        pdf.text(145, y_pos - 5, "Scan QR to View KML File")  # ✅ no emoji
-        pdf.image(qr_temp, x=155, y=y_pos, w=35)
+        pdf.set_text_color(0, 0, 0)
+        pdf.text(20, y_pos, "Scan QR to View KML File:")
+
+        # --- Draw QR image ---
+        pdf.image(qr_temp, x=20, y=y_pos + 5, w=35, h=35)
+        # Add thin border
+        pdf.set_draw_color(0, 0, 0)
+        pdf.rect(20 - 1, y_pos + 5 - 1, 35 + 2, 35 + 2)
+
+        # --- Clickable link ---
+        pdf.set_xy(20, y_pos + 42)
+        pdf.set_font("Helvetica", "U", 9)
         pdf.set_text_color(0, 0, 255)
-        pdf.set_font("Helvetica", "U", 8)
-        pdf.set_xy(15, y_pos + 35)
-        pdf.cell(0, 8, viewer_url, align="C", link=viewer_url)
+        pdf.cell(0, 8, viewer_url, link=viewer_url)
         pdf.set_text_color(0, 0, 0)
 
     except Exception as e:
         pdf.set_font("Helvetica", "I", 10)
         pdf.set_text_color(255, 0, 0)
-        pdf.cell(0, 10, f"QR generation failed: {e}", align="C")
+        pdf.cell(0, 10, f"QR generation failed: {e}", ln=1, align="C")
         pdf.set_text_color(0, 0, 0)
 
     # -------------------------------
@@ -666,6 +680,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
