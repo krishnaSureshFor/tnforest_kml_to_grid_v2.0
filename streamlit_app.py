@@ -469,7 +469,7 @@ def build_pdf_report_standard(
     try:
         if labeled_kml is not None:
             kml_id, _ = save_kml_for_viewer(labeled_kml)
-            viewer_url = f"https://krishnaSureshFor.github.io/tnforest-kml-grid/viewer/?id={kml_id}"
+            viewer_url = f"https://krishnasureshfor.github.io/tnforest_kml_to_grid_v2.0/viewer/?id={kml_id}"
 
             qr_img = make_qr_code(viewer_url)
             qr_temp = os.path.join(tempfile.gettempdir(), "qr_temp.png")
@@ -665,6 +665,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
