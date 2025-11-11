@@ -349,6 +349,7 @@ def build_pdf_report_standard(
     def push_kml_to_repo(kml_path, kml_id, repo_name="krishnaSureshFor/tnforest_kml_to_grid_v2.0"):
         """Push generated KML to GitHub repo's public_kml folder."""
         token = os.getenv("GITHUB_TOKEN")  # set this in Streamlit Cloud → Settings → Secrets
+        print("🔍 GITHUB_TOKEN found:", bool(token))
         if not token:
             print("⚠️ Missing GITHUB_TOKEN — cannot push to repo")
             return None
@@ -712,6 +713,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
