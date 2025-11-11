@@ -321,13 +321,39 @@ def generate_labeled_kml(cells_ll, merged_ll, user_inputs, overlay_gdf=None):
 # ================================================================
 def build_pdf_report_standard(
     cells_ll, merged_ll, user_inputs, cell_size,
-    overlay_gdf, title_text, density, area_invasive
+    overlay_gdf, title_text, density, area_invasive, labeled_kml=None
 ):
     import geopandas as gpd, matplotlib.pyplot as plt, contextily as ctx, tempfile, os
     from fpdf import FPDF
+    import qrcode
+    import uuid
+    from io import BytesIO
 
     MAP_X, MAP_Y, MAP_W, MAP_H, LEGEND_GAP = 15, 55, 180, 145, 8
     EMBLEM_PATH = os.path.join(os.path.dirname(__file__), "tn_emblem.png")
+
+    # -------------------------------
+    # Helper: Generate and save QR
+    # -------------------------------
+    def save_kml_for_viewer(kml_text):
+        """Save KML with unique ID in /public_kml/ folder."""
+        kml_id = str(uuid.uuid4())[:8]
+        out_dir = os.path.join("public_kml")
+        os.makedirs(out_dir, exist_ok=True)
+        kml_path = os.path.join(out_dir, f"{kml_id}.kml")
+        with open(kml_path, "w", encoding="utf-8") as f:
+            f.write(kml_text)
+        return kml_id, kml_path
+
+    def make_qr_code(url):
+        qr = qrcode.QRCode(box_size=3, border=2)
+        qr.add_data(url)
+        qr.make(fit=True)
+        img = qr.make_image(fill_color="black", back_color="white")
+        buf = BytesIO()
+        img.save(buf, format="PNG")
+        buf.seek(0)
+        return buf
 
     class PDF(FPDF):
         def footer(self):
@@ -339,7 +365,9 @@ def build_pdf_report_standard(
     pdf = PDF("P", "mm", "A4")
     pdf.set_auto_page_break(auto=True, margin=15)
 
-    # Page 1 — Header
+    # -------------------------------
+    # Page 1 — Header + Map
+    # -------------------------------
     pdf.add_page()
     if os.path.exists(EMBLEM_PATH):
         pdf.image(EMBLEM_PATH, x=93, y=8, w=25)
@@ -355,19 +383,22 @@ def build_pdf_report_standard(
     fig, ax = plt.subplots(figsize=(7, 5.8))
     merged_gdf = gpd.GeoSeries([merged_ll], crs="EPSG:4326").to_crs(3857)
     grid_gdf = gpd.GeoSeries(cells_ll, crs="EPSG:4326").to_crs(3857)
-    merged_gdf.boundary.plot(ax=ax, color="red", linewidth=3)            # AOI 3px red
-    grid_gdf.boundary.plot(ax=ax, color="red", linewidth=1)              # Grid 1px red
+    merged_gdf.boundary.plot(ax=ax, color="red", linewidth=3)
+    grid_gdf.boundary.plot(ax=ax, color="red", linewidth=1)
     if overlay_gdf is not None and not overlay_gdf.empty:
-        overlay_gdf.to_crs(3857).boundary.plot(ax=ax, color="#FFD700", linewidth=3)  # Overlay gold 3px
-    ctx.add_basemap(ax, crs=3857, source=ctx.providers.Esri.WorldImagery)  # do not pass attribution kw
-    ax.axis("off"); plt.tight_layout(pad=0.1)
-    fig.savefig(map_img, dpi=250, bbox_inches="tight"); plt.close(fig)
+        overlay_gdf.to_crs(3857).boundary.plot(ax=ax, color="#FFD700", linewidth=3)
+    ctx.add_basemap(ax, crs=3857, source=ctx.providers.Esri.WorldImagery)
+    ax.axis("off")
+    plt.tight_layout(pad=0.1)
+    fig.savefig(map_img, dpi=250, bbox_inches="tight")
+    plt.close(fig)
     pdf.image(map_img, x=MAP_X, y=MAP_Y, w=MAP_W, h=MAP_H)
 
-    # Legend
+    # Legend box
     legend_y = MAP_Y + MAP_H + LEGEND_GAP
     pdf.set_y(legend_y)
-    pdf.set_fill_color(245, 245, 240); pdf.set_draw_color(180, 180, 180)
+    pdf.set_fill_color(245, 245, 240)
+    pdf.set_draw_color(180, 180, 180)
     pdf.rect(MAP_X, legend_y, MAP_W, 40, style="FD")
     pdf.set_font("Helvetica", "", 11)
     col1 = [
@@ -386,14 +417,15 @@ def build_pdf_report_standard(
         pdf.text(MAP_X + 10, legend_y + 10 + i * 6, col1[i])
         pdf.text(MAP_X + 100, legend_y + 10 + i * 6, col2[i])
 
-    # Note
     pdf.set_y(legend_y + 47)
     pdf.set_font("Helvetica", "I", 9)
     pdf.set_text_color(80, 80, 80)
     pdf.multi_cell(0, 5, "Note: Satellite background (Esri) and boundaries are automatically generated. Developed by Rasipuram Range.")
     pdf.set_text_color(0, 0, 0)
 
-    # Page 2 — Corner GPS Table (only if overlay exists)
+    # -------------------------------
+    # Page 2 — GPS Table (if overlay)
+    # -------------------------------
     if overlay_gdf is not None and not overlay_gdf.empty:
         pdf.add_page()
         pdf.set_font("Helvetica", "B", 12)
@@ -431,29 +463,36 @@ def build_pdf_report_standard(
                     pdf.ln(8)
                     pdf.set_font("Helvetica", "", 10)
 
-    # --- Embed QR + link to online viewer ---
+    # -------------------------------
+    # LAST PAGE — QR Code + Viewer Link
+    # -------------------------------
     try:
-        from streamlit_app import save_kml_for_viewer, make_qr_code
-        kml_id, kml_path = save_kml_for_viewer(labeled_kml)
-        viewer_url = f"https://krishnaSureshFor.github.io/tnforest-kml-grid/viewer/?id={kml_id}"
+        if labeled_kml is not None:
+            kml_id, _ = save_kml_for_viewer(labeled_kml)
+            viewer_url = f"https://krishnaSureshFor.github.io/tnforest-kml-grid/viewer/?id={kml_id}"
 
-        qr_img = make_qr_code(viewer_url)
-        qr_temp = os.path.join(tempfile.gettempdir(), "qr_temp.png")
-        with open(qr_temp, "wb") as f:
-            f.write(qr_img.read())
+            qr_img = make_qr_code(viewer_url)
+            qr_temp = os.path.join(tempfile.gettempdir(), "qr_temp.png")
+            with open(qr_temp, "wb") as f:
+                f.write(qr_img.read())
 
-        pdf.image(qr_temp, x=165, y=legend_y + 5, w=30)
-        pdf.set_xy(15, legend_y + 95)
-        pdf.set_font("Helvetica", "I", 10)
-        pdf.cell(0, 10, "Scan QR to view grid on map", ln=1)
-        pdf.set_text_color(0, 0, 255)
-        pdf.set_font("Helvetica", "U", 9)
-        pdf.cell(0, 8, viewer_url, ln=1, align="C", link=viewer_url)
-        pdf.set_text_color(0, 0, 0)
+            # Add final page for QR
+            pdf.add_page()
+            pdf.set_font("Helvetica", "B", 14)
+            pdf.cell(0, 15, "📷 Scan QR to View KML File", ln=1, align="C")
+
+            pdf.image(qr_temp, x=80, y=50, w=50)
+            pdf.set_y(110)
+            pdf.set_text_color(0, 0, 255)
+            pdf.set_font("Helvetica", "U", 10)
+            pdf.cell(0, 10, viewer_url, ln=1, align="C", link=viewer_url)
+            pdf.set_text_color(0, 0, 0)
     except Exception as e:
-        print("QR embed failed:", e)
+        print("QR generation failed:", e)
 
-    # Output bytes
+    # -------------------------------
+    # Final output
+    # -------------------------------
     result = pdf.output(dest="S")
     return bytes(result) if isinstance(result, (bytes, bytearray)) else result.encode("latin1", errors="ignore")
 # ================================================================
@@ -626,6 +665,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
