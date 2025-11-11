@@ -453,6 +453,7 @@ def build_pdf_report_standard(
         # -------------------------------
     # QR Code — crisp, sharp, left side below table
     # -------------------------------
+    y_pos = pdf.get_y()  # ✅ ensures variable is defined
     try:
         from PIL import Image
 
@@ -690,6 +691,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
