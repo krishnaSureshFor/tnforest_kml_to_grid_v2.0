@@ -452,12 +452,6 @@ def build_pdf_report_standard(
                     pdf.ln(8)
                     pdf.set_font("Helvetica", "", 10)
 
-    # -------------------------------
-    # QR Code — below GPS table (left side) with border
-    # -------------------------------
-        # -------------------------------
-    # QR Code — below GPS table (left side, direct memory)
-    # -------------------------------
         # -------------------------------
     # QR Code — crisp, sharp, left side below table
     # -------------------------------
@@ -477,20 +471,30 @@ def build_pdf_report_standard(
         else:
             viewer_url = "https://krishnaSureshFor.github.io/tnforest_kml_to_grid_v2.0"
 
-        # --- Generate crisp QR ---
+        # --- Create crisp RGB QR image ---
         from PIL import Image
         
         qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)
         qr.add_data(viewer_url)
         qr.make(fit=True)
-        img = qr.make_image(fill_color="black", back_color="white").convert("RGB")  # ✅ fixed
+        img = qr.make_image(fill_color="black", back_color="white").convert("RGB")
         
-        img = img.resize((500, 500), Image.NEAREST)
+        # Make it physically ~38 mm wide at 300 DPI (≈450 px)
+        px = 450
+        img = img.resize((px, px), Image.NEAREST)
         
+        # Save to memory WITHOUT compression
         buf = BytesIO()
-        img.save(buf, format="PNG", optimize=True)
+        img.save(buf, format="PNG", compress_level=0, dpi=(300, 300))
         buf.seek(0)
-        pdf.image(buf, x=20, y=y_pos + 5, w=40, h=40, type="PNG")
+        
+        # --- Insert into PDF ---
+        pdf.image(buf, x=20, y=y_pos + 5, w=38, type="PNG")
+        
+        # --- Draw clean border ---
+        pdf.set_draw_color(0, 0, 0)
+        pdf.rect(19, y_pos + 4, 40, 40)
+
 
         # --- Position below table ---
         y_pos = pdf.get_y() + 12
@@ -699,6 +703,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
