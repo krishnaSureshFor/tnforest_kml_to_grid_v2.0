@@ -24,12 +24,12 @@
   <!-- Leaflet KML parser -->
   <script src="https://unpkg.com/leaflet-kml@latest/L.KML.js"></script>
 
-  <!-- Leaflet.Measure plugin -->
+  <!-- Leaflet.MeasureControl (modern + compatible) -->
   <link
     rel="stylesheet"
-    href="https://unpkg.com/leaflet-measure@3.3.0/dist/leaflet-measure.css"
+    href="https://cdn.jsdelivr.net/npm/leaflet-measure-control@1.1.0/dist/leaflet-measure-control.min.css"
   />
-  <script src="https://unpkg.com/leaflet-measure@3.3.0/dist/leaflet-measure.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-measure-control@1.1.0/dist/leaflet-measure-control.min.js"></script>
 
   <style>
     html, body, #map {
@@ -76,49 +76,38 @@
   <div id="map"></div>
 
   <script>
-    // --- Initialize map ---
+    // --- Map setup ---
     const map = L.map("map").setView([11.3, 78.5], 10);
     const base = L.tileLayer(
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       { attribution: "&copy; Esri — Satellite Imagery", maxZoom: 19 }
     ).addTo(map);
-  
-    // ✅ Add modern measurement tool
-    // This plugin is compatible with Leaflet 1.9+
-    const measureScript = document.createElement("script");
-    measureScript.src = "https://unpkg.com/leaflet-measure-path@2.2.0/leaflet-measure-path.min.js";
-    document.head.appendChild(measureScript);
-  
-    const measureStyle = document.createElement("link");
-    measureStyle.rel = "stylesheet";
-    measureStyle.href = "https://unpkg.com/leaflet-measure-path@2.2.0/leaflet-measure-path.css";
-    document.head.appendChild(measureStyle);
-  
-    measureScript.onload = () => {
-      L.control.measurePath({
-        showUnitControl: true,
-        measureArea: true,
-        measureDistance: true,
-        activeColor: "#2b9348",
-        completedColor: "#ff6600"
-      }).addTo(map);
-    };
-  
-    // --- URL parameter ---
+
+    // --- Measurement tool (top-right ruler) ---
+    const measureControl = new L.Control.MeasureControl({
+      position: 'topleft',
+      primaryLengthUnit: 'meters',
+      secondaryLengthUnit: 'kilometers',
+      primaryAreaUnit: 'hectares',
+      activeColor: '#2b9348',
+      completedColor: '#ff6600'
+    });
+    map.addControl(measureControl);
+
+    // --- Get KML ID ---
     const params = new URLSearchParams(window.location.search);
     const fileId = params.get("id");
     if (!fileId) {
       alert("❌ Missing KML ID in URL!");
       throw new Error("No ?id= parameter found");
     }
-  
+
     const kmlUrl = `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
     console.log("📂 Fetching KML from:", kmlUrl);
-  
-    // --- Fetch & Load ---
+
+    // --- Load KML ---
     fetch(kmlUrl, { mode: "cors", cache: "no-cache" })
       .then(res => {
-        console.log("Response:", res.status);
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.text();
       })
@@ -127,45 +116,27 @@
         const parser = new DOMParser();
         const kml = parser.parseFromString(cleanText, "text/xml");
         const layer = new L.KML(kml);
-  
+
+        // ✅ Keep original colors (no override)
         const gridLayer = L.layerGroup();
         const overlayLayer = L.layerGroup();
-  
-        // Separate layers based on name
+
         layer.eachLayer(l => {
-          const name = l.feature?.properties?.name || "";
-          if (name.toLowerCase().includes("overlay")) {
-            l.setStyle({ color: "#FFD700", weight: 3, fillColor: "#FFD700", fillOpacity: 0.15 });
-            overlayLayer.addLayer(l);
-          } else {
-            l.setStyle({ color: "#FF0000", weight: 1, fillColor: "#FF0000", fillOpacity: 0.2 });
-            gridLayer.addLayer(l);
-          }
+          const name = l.feature?.properties?.name?.toLowerCase() || "";
+          if (name.includes("overlay")) overlayLayer.addLayer(l);
+          else gridLayer.addLayer(l);
         });
-  
+
         gridLayer.addTo(map);
         overlayLayer.addTo(map);
-  
-        // Grid labels
-        gridLayer.eachLayer(l => {
-          if (l.feature?.properties?.name) {
-            const center = l.getBounds().getCenter();
-            L.marker(center, {
-              icon: L.divIcon({
-                className: "grid-label",
-                html: `<b style="color:white; text-shadow:1px 1px 2px black; font-size:12px;">${l.feature.properties.name}</b>`,
-              }),
-            }).addTo(map);
-          }
-        });
-  
-        // Layer control
+
+        // ✅ Layer toggle control
         L.control.layers(null, {
           "Grid Cells": gridLayer,
-          "Overlay Boundary": overlayLayer,
+          "Overlay Boundary": overlayLayer
         }).addTo(map);
-  
-        // Fit bounds + hide loading
+
+        // ✅ Auto zoom + hide loading
         setTimeout(() => {
           try {
             const bounds = layer.getBounds();
