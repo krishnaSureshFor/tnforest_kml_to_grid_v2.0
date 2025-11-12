@@ -34,38 +34,36 @@
   <div id="map"></div>
 
   <script>
-    // --- Map setup ---
-    const map = L.map('map').setView([11.3, 78.5], 10);
-    L.tileLayer(
-      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      { attribution: '&copy; Esri — Satellite Imagery', maxZoom: 19 }
-    ).addTo(map);
+  // --- Map setup ---
+  const map = L.map('map').setView([11.3, 78.5], 10);
+  L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    { attribution: '&copy; Esri — Satellite Imagery', maxZoom: 19 }
+  ).addTo(map);
 
-    // --- Parse ?id= from URL ---
-    const params = new URLSearchParams(window.location.search);
-    const fileId = params.get('id');
+  // --- Parse ?id= from URL ---
+  const params = new URLSearchParams(window.location.search);
+  const fileId = params.get('id');
 
-    if (fileId) {
-      const kmlUrl =
-        `https://krishnaSureshFor.github.io/tnforest_kml_to_grid_v2.0/public_kml/${fileId}.kml`;
-      console.log("Loading KML:", kmlUrl);
+  if (fileId) {
+    // Use raw.githubusercontent.com URL to bypass CORS
+    const kmlUrl =
+      `https://raw.githubusercontent.com/krishnaSureshFor/tnforest_kml_to_grid_v2.0/main/public_kml/${fileId}.kml`;
+    console.log("Loading KML:", kmlUrl);
 
-      fetch(kmlUrl)
-        .then(res => res.text())
-        .then(kmlText => {
-          const parser = new DOMParser();
-          const kml = parser.parseFromString(kmlText, "text/xml");
-          const track = new L.KML(kml);
-          map.addLayer(track);
-          map.fitBounds(track.getBounds());
-        })
-        .catch(err => {
-          console.error("Failed to load KML:", err);
-          alert("❌ Could not load KML file.");
-        });
-    } else {
-      alert("❌ Invalid or missing KML ID in URL.");
-    }
-  </script>
+    // Load via omnivore (CORS-safe)
+    omnivore.kml(kmlUrl)
+      .on("ready", function () {
+        map.fitBounds(this.getBounds());
+      })
+      .on("error", function (e) {
+        console.error("KML load failed:", e);
+        alert("❌ Could not load KML — check file path or ID.");
+      })
+      .addTo(map);
+  } else {
+    alert("❌ Invalid or missing KML ID in URL.");
+  }
+</script>
 </body>
 </html>
