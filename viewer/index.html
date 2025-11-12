@@ -14,10 +14,22 @@
   <script src="https://unpkg.com/leaflet-kml@latest/L.KML.js"></script>
 
   <style>
-    /* Full height setup */
-    html, body, #map { height: 100%; margin: 0; padding: 0; }
+  /* 🛠️ FIX: Explicitly set height on html and body for full-screen map */
+    html, body {
+      height: 100%; 
+      margin: 0; 
+      padding: 0;
+      overflow: hidden; /* Prevent scrollbars */
+    }
     
-    /* Header styling */
+    #map { 
+      height: 100%; 
+      width: 100%; 
+      margin: 0; 
+      padding: 0; 
+    }
+    
+    /* Header styling remains the same */
     #header {
       position: absolute;
       top: 10px;
