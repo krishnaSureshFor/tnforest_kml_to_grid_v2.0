@@ -69,15 +69,27 @@
         const parser = new DOMParser();
         const kml = parser.parseFromString(kmlText, "text/xml");
         const layer = new L.KML(kml);
+      
+        layer.on("loaded", () => {
+          console.log("✅ KML fully loaded, adjusting map bounds...");
+          const bounds = layer.getBounds();
+          if (bounds && bounds.isValid && bounds.isValid()) {
+            map.fitBounds(bounds);
+          }
+      
+          // Make red grid visible even if KML uses fill=0
+          layer.eachLayer(function (l) {
+            if (l.setStyle) l.setStyle({ color: "#FF0000", weight: 1, fillOpacity: 0.15 });
+          });
+        });
+      
         map.addLayer(layer);
-        const bounds = layer.getBounds();
-        if (bounds.isValid && bounds.isValid()) map.fitBounds(bounds);
-        console.log("✅ KML loaded successfully");
       })
-  .catch(err => {
-    console.error("❌ Failed to load KML:", err);
-    alert(`Could not load KML (${err.message}). Check console for details.`);
-  });
+      .catch(err => {
+        console.error("❌ Failed to load KML:", err);
+        alert(`Could not load KML (${err.message}). Check console for details.`);
+      });
+
   </script>
 </body>
 </html>
