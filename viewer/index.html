@@ -5,32 +5,18 @@
   <title>🌿 Forest Grid Map Viewer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Leaflet core -->
   <link
     rel="stylesheet"
-    href="//unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
-  <script src="//unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <script src="//unpkg.com/leaflet-kml@latest/L.KML.js"></script>
+  <!-- Leaflet KML parser -->
+  <script src="https://unpkg.com/leaflet-kml@latest/L.KML.js"></script>
 
   <style>
-    /* 🚨 CRITICAL FIX: Ensure HTML, BODY, and MAP elements occupy the full screen height */
-    html, body {
-      height: 100%;       /* Force HTML and BODY to take full viewport height */
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;   /* Prevents scrollbars */
-    }
-
-    #map { 
-      height: 100%;       /* Force the map div to take 100% of the body height */
-      width: 100%;
-      margin: 0; 
-      padding: 0; 
-      z-index: 1;         /* Map is layer 1 */
-    }
-    
+    html, body, #map { height: 100%; margin: 0; padding: 0; }
     #header {
       position: absolute;
       top: 10px;
@@ -46,172 +32,66 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       z-index: 9999;
     }
-
-    /* New Log Batch Styling */
-    #log-batch {
-        position: absolute;
-        bottom: 10px;
-        left: 10px;
-        width: 300px;
-        max-height: 200px;
-        background: rgba(0, 0, 0, 0.7);
-        color: #fff;
-        padding: 10px;
-        border-radius: 8px;
-        font-family: monospace;
-        font-size: 12px;
-        overflow-y: scroll;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        z-index: 9999;
-    }
-    .log-entry {
-        border-bottom: 1px dashed #444;
-        padding: 2px 0;
-    }
-    .log-error { color: #ff5555; }
-    .log-warning { color: #ffaa00; }
-    .log-info { color: #9999ff; }
   </style>
 </head>
 <body>
   <div id="header">🌿 Forest Department — Grid Viewer</div>
   <div id="map"></div>
-  <div id="log-batch">**Log Batch** (Reload the page to start logging)</div>
 
   <script>
-    // --- Logging Utility Function ---
-    const logContainer = document.getElementById('log-batch');
-    const originalConsole = { 
-        log: console.log, 
-        error: console.error, 
-        warn: console.warn 
-    };
-
-    function appendLog(type, message) {
-        const entry = document.createElement('div');
-        entry.className = `log-entry log-${type}`;
-        
-        let logMessage = '';
-        if (typeof message === 'object' && message !== null) {
-            logMessage = message.message || JSON.stringify(message, null, 2).substring(0, 200) + '...';
-        } else {
-            logMessage = String(message);
-        }
-
-        entry.textContent = `[${type.toUpperCase()}] ${logMessage}`;
-        
-        if (logContainer.firstChild && logContainer.firstChild.nodeName !== 'B') {
-            logContainer.insertBefore(entry, logContainer.firstChild);
-        } else {
-            logContainer.appendChild(entry);
-        }
-    }
-
-    // Override console methods to capture output
-    console.log = (...args) => {
-        originalConsole.log(...args);
-        appendLog('info', args.join(' '));
-    };
-    console.error = (...args) => {
-        originalConsole.error(...args);
-        appendLog('error', args.join(' '));
-    };
-    console.warn = (...args) => {
-        originalConsole.warn(...args);
-        appendLog('warning', args.join(' '));
-    };
-    
-    // Initial cleanup of the log batch div
-    logContainer.innerHTML = '';
-    console.log("Starting log batch...");
-    
-    
-    // --- 1. Map Initialization Constants ---
-    const DEFAULT_LAT = 11.3;
-    const DEFAULT_LON = 78.5;
-    const DEFAULT_ZOOM = 10;
-    
-    // --- 2. Initialize Map ---
-    // If the map is blank, it is likely failing here due to CSS height or script load failure.
-    const map = L.map("map").setView([DEFAULT_LAT, DEFAULT_LON], DEFAULT_ZOOM);
-    console.log("Map initialized.");
-
-    // Add Esri Satellite Layer (the base map)
+    // --- 1. Initialize Map ---
+    const map = L.map("map").setView([11.3, 78.5], 10);
     L.tileLayer(
-      "//server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       { attribution: "&copy; Esri — Satellite Imagery", maxZoom: 19 }
     ).addTo(map);
-    console.log("Satellite tile layer added.");
 
-    // --- 3. Get ?id= parameter from URL ---
+    // --- 2. Get ?id= parameter from URL ---
     const params = new URLSearchParams(window.location.search);
     const fileId = params.get("id");
-    
     if (!fileId) {
-      alert("❌ Missing KML ID in URL! Please ensure you use a link from the generated PDF.");
-      console.error("Missing KML ID in URL.");
-      return; 
+      alert("❌ Missing KML ID in URL!");
+      throw new Error("No ?id= parameter found");
     }
 
-    // --- 4. Build CORS-safe jsDelivr URL ---
+    // --- 3. Build CORS-safe jsDelivr URL ---
     const kmlUrl = `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
     console.log("📂 Fetching KML from:", kmlUrl);
 
-    // --- 5. Fetch and render the KML ---
+    // --- 4. Fetch and render the KML ---
     fetch(kmlUrl, { mode: "cors", cache: "no-cache" })
       .then(res => {
         console.log("Response status:", res.status);
-        if (!res.ok) {
-          let errorMsg = `HTTP Error ${res.status}. KML file "${fileId}.kml" not found or inaccessible.`;
-          throw new Error(errorMsg);
-        }
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.text();
       })
       .then(kmlText => {
         console.log("KML text length:", kmlText.length);
         const parser = new DOMParser();
         const kml = parser.parseFromString(kmlText, "text/xml");
-        
-        // Create and add the KML layer
         const layer = new L.KML(kml);
-        map.addLayer(layer);
-        console.log("L.KML layer added to map.");
 
         // Wait until KML fully parsed before fitting bounds
         layer.on("loaded", () => {
           console.log("✅ KML fully loaded — adjusting map bounds...");
-          
           const bounds = layer.getBounds();
-          
           if (bounds && bounds.isValid && bounds.isValid()) {
-            map.fitBounds(bounds.pad(0.1)); 
-            console.log("Map bounds fitted successfully.");
-          } else {
-            map.setView([DEFAULT_LAT, DEFAULT_LON], 8);
-            console.warn("⚠️ Invalid KML bounds. Displaying fallback view.");
+            map.fitBounds(bounds);
           }
 
-          // Force a consistent, visible style on all KML features
+          // Optional: force visible style
           layer.eachLayer(l => {
             if (l.setStyle) {
-              l.setStyle({ 
-                color: "#FF0000",
-                weight: 2,
-                opacity: 1.0,
-                fillColor: "#FF0000",
-                fillOpacity: 0.2
-              });
+              l.setStyle({ color: "#FF0000", weight: 1, fillOpacity: 0.15 });
             }
           });
-          
-          // CRITICAL: Force map to redraw if it was hidden or resized
-          map.invalidateSize(); 
-          console.log("Map size invalidated (redrawn).");
         });
+
+        map.addLayer(layer);
       })
       .catch(err => {
-        console.error("❌ Failed to load KML:", err.message);
-        alert(`Could not load KML. Check Log Batch for details.`);
+        console.error("❌ Failed to load KML:", err);
+        alert(`Could not load KML. Ensure the file exists and repo is public.`);
       });
   </script>
 </body>
