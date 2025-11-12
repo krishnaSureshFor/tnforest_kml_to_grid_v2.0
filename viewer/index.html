@@ -12,7 +12,7 @@
   />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <!-- ✅ Patch for "L.MultiPolygon is not a constructor" -->
+  <!-- Fix for missing L.MultiPolygon -->
   <script>
     if (typeof L.MultiPolygon === "undefined") {
       L.MultiPolygon = function (latlngs, options) {
@@ -23,6 +23,13 @@
 
   <!-- Leaflet KML parser -->
   <script src="https://unpkg.com/leaflet-kml@latest/L.KML.js"></script>
+
+  <!-- Leaflet.Measure plugin -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet-measure@3.3.0/dist/leaflet-measure.css"
+  />
+  <script src="https://unpkg.com/leaflet-measure@3.3.0/dist/leaflet-measure.js"></script>
 
   <style>
     html, body, #map {
@@ -43,7 +50,7 @@
       font-weight: 600;
       font-size: 16px;
       color: #2b9348;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       z-index: 9999;
     }
     #loading {
@@ -57,8 +64,9 @@
       font-family: Arial, sans-serif;
       font-size: 15px;
       color: #2b9348;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
       z-index: 9998;
+      transition: opacity 0.5s ease;
     }
   </style>
 </head>
@@ -68,12 +76,24 @@
   <div id="map"></div>
 
   <script>
+    // --- Initialize map ---
     const map = L.map("map").setView([11.3, 78.5], 10);
-    L.tileLayer(
+    const base = L.tileLayer(
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       { attribution: "&copy; Esri — Satellite Imagery", maxZoom: 19 }
     ).addTo(map);
 
+    // --- Measurement tool ---
+    const measureControl = new L.Control.Measure({
+      primaryLengthUnit: "meters",
+      secondaryLengthUnit: "kilometers",
+      primaryAreaUnit: "hectares",
+      activeColor: "#2b9348",
+      completedColor: "#ff6600",
+    });
+    measureControl.addTo(map);
+
+    // --- URL parameter ---
     const params = new URLSearchParams(window.location.search);
     const fileId = params.get("id");
     if (!fileId) {
@@ -81,51 +101,69 @@
       throw new Error("No ?id= parameter found");
     }
 
-    const kmlUrl =
-      `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
+    const kmlUrl = `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
     console.log("📂 Fetching KML from:", kmlUrl);
 
+    // --- Fetch & Load ---
     fetch(kmlUrl, { mode: "cors", cache: "no-cache" })
       .then(res => {
-        console.log("Response status:", res.status);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        console.log("Response:", res.status);
+        if (!res.ok) throw new Error("HTTP " + res.status);
         return res.text();
       })
       .then(kmlText => {
-        console.log("KML text length:", kmlText.length);
-
-        // 🧹 Remove ns0: namespace prefixes
         const cleanText = kmlText.replace(/<\/*\w+:/g, m => m.replace(/[\w:]+:/, ""));
         const parser = new DOMParser();
         const kml = parser.parseFromString(cleanText, "text/xml");
         const layer = new L.KML(kml);
 
-        // ✅ Add layer immediately
-        map.addLayer(layer);
+        const gridLayer = L.layerGroup();
+        const overlayLayer = L.layerGroup();
 
-        // 🔍 Try fitting bounds after short delay
+        // Separate layers based on name
+        layer.eachLayer(l => {
+          const name = l.feature?.properties?.name || "";
+          if (name.toLowerCase().includes("overlay")) {
+            l.setStyle({ color: "#FFD700", weight: 3, fillColor: "#FFD700", fillOpacity: 0.15 });
+            overlayLayer.addLayer(l);
+          } else {
+            l.setStyle({ color: "#FF0000", weight: 1, fillColor: "#FF0000", fillOpacity: 0.2 });
+            gridLayer.addLayer(l);
+          }
+        });
+
+        gridLayer.addTo(map);
+        overlayLayer.addTo(map);
+
+        // Add labels for grids
+        gridLayer.eachLayer(l => {
+          if (l.feature?.properties?.name) {
+            const center = l.getBounds().getCenter();
+            L.marker(center, {
+              icon: L.divIcon({
+                className: "grid-label",
+                html: `<b style="color:white; text-shadow:1px 1px 2px black; font-size:12px;">${l.feature.properties.name}</b>`,
+              }),
+            }).addTo(map);
+          }
+        });
+
+        // Layer controls
+        L.control.layers(null, {
+          "Grid Cells": gridLayer,
+          "Overlay Boundary": overlayLayer,
+        }).addTo(map);
+
+        // Fit bounds
         setTimeout(() => {
           try {
             const bounds = layer.getBounds();
-            if (bounds && bounds.isValid && bounds.isValid()) {
-              map.fitBounds(bounds);
-            }
-            document.getElementById("loading").style.display = "none"; // ✅ hide overlay here
-          } catch (err) {
-            console.warn("⚠️ Could not auto-fit bounds:", err);
-            document.getElementById("loading").style.display = "none";
-          }
-
-          // 🔴 Style the polygons for visibility
-          layer.eachLayer(l => {
-            if (l.setStyle) {
-              l.setStyle({
-                fillColor: "#FF6347",
-                fillOpacity: 0.2,
-              });
-            }
-          });
-        }, 800); // wait 0.8s for KML to fully render
+            if (bounds && bounds.isValid && bounds.isValid()) map.fitBounds(bounds);
+          } catch {}
+          const loadBox = document.getElementById("loading");
+          loadBox.style.opacity = "0";
+          setTimeout(() => (loadBox.style.display = "none"), 500);
+        }, 800);
       })
       .catch(err => {
         console.error("❌ Failed to load KML:", err);
