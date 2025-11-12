@@ -56,23 +56,27 @@
     console.log("📂 Fetching KML from:", kmlUrl);
 
     // --- Fetch and parse manually using L.KML ---
-    fetch(kmlUrl)
+    console.log("📂 Fetching KML from:", kmlUrl);
+    fetch(kmlUrl, { mode: "cors", cache: "no-cache" })
       .then(res => {
-        if (!res.ok) throw new Error("KML not found or access denied");
+        console.log("Response status:", res.status);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.text();
       })
       .then(kmlText => {
+        console.log("KML text length:", kmlText.length);
         const parser = new DOMParser();
         const kml = parser.parseFromString(kmlText, "text/xml");
         const layer = new L.KML(kml);
         map.addLayer(layer);
-        map.fitBounds(layer.getBounds());
+        const bounds = layer.getBounds();
+        if (bounds.isValid && bounds.isValid()) map.fitBounds(bounds);
         console.log("✅ KML loaded successfully");
       })
-      .catch(err => {
-        console.error("❌ Failed to load KML:", err);
-        alert("Could not load KML. Ensure the file ID exists and the repo is public.");
-      });
+  .catch(err => {
+    console.error("❌ Failed to load KML:", err);
+    alert(`Could not load KML (${err.message}). Check console for details.`);
+  });
   </script>
 </body>
 </html>
