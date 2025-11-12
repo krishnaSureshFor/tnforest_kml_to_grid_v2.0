@@ -12,7 +12,7 @@
   <!-- Patch for MultiPolygon -->
   <script>
     if (typeof L.MultiPolygon === "undefined") {
-      L.MultiPolygon = function (latlngs, options) {
+      L.MultiPolygon = function(latlngs, options) {
         return new L.Polygon(latlngs, options);
       };
     }
@@ -21,9 +21,9 @@
   <!-- Leaflet KML parser -->
   <script src="https://unpkg.com/leaflet-kml@latest/L.KML.js"></script>
 
-  <!-- ✅ Reliable measurement plugin -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-measure@3.3.0/dist/leaflet-measure.css" />
-  <script src="https://cdn.jsdelivr.net/npm/leaflet-measure@3.3.0/dist/leaflet-measure.min.js"></script>
+  <!-- ✅ Working measurement plugin -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-measure-path@2.2.0/leaflet-measure-path.css" />
+  <script src="https://unpkg.com/leaflet-measure-path@2.2.0/leaflet-measure-path.min.js"></script>
 
   <style>
     html, body, #map {
@@ -78,15 +78,19 @@
       { attribution: "&copy; Esri — Satellite Imagery", maxZoom: 19 }
     ).addTo(map);
 
-    // ✅ Add measurement tool
-    L.control.measure({
-      position: "topleft",
-      primaryLengthUnit: "meters",
-      secondaryLengthUnit: "kilometers",
-      primaryAreaUnit: "hectares",
-      activeColor: "#2b9348",
-      completedColor: "#ff6600"
-    }).addTo(map);
+    // ✅ Add working measurement control (leaflet-measure-path)
+    if (L.control.measurePath) {
+      L.control.measurePath({
+        showUnitControl: true,
+        measureArea: true,
+        measureDistance: true,
+        position: "topleft",
+        activeColor: "#2b9348",
+        completedColor: "#ff6600"
+      }).addTo(map);
+    } else {
+      console.warn("⚠️ Measurement plugin not loaded.");
+    }
 
     // Loader handler
     function hideLoader() {
@@ -119,6 +123,7 @@
         const gridGroup = L.layerGroup();
         const overlayGroup = L.layerGroup();
 
+        // ✅ Safe handling for undefined names
         kml.eachLayer(l => {
           const name = (l?.feature?.properties?.name ?? "").toString().toLowerCase();
           if (name.includes("overlay")) overlayGroup.addLayer(l);
