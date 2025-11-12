@@ -6,7 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Leaflet core -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <!-- Leaflet KML parser -->
@@ -36,30 +39,26 @@
   <div id="map"></div>
 
   <script>
-    // --- Initialize the map ---
+    // --- 1. Initialize Map ---
     const map = L.map("map").setView([11.3, 78.5], 10);
-
-    // --- Add satellite basemap ---
     L.tileLayer(
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       { attribution: "&copy; Esri — Satellite Imagery", maxZoom: 19 }
     ).addTo(map);
 
-    // --- Read the file ID from URL ---
+    // --- 2. Get ?id= parameter from URL ---
     const params = new URLSearchParams(window.location.search);
     const fileId = params.get("id");
-
     if (!fileId) {
       alert("❌ Missing KML ID in URL!");
       throw new Error("No ?id= parameter found");
     }
 
-    // --- Construct GitHub Raw URL ---
-    const kmlUrl =
-      `https://raw.githubusercontent.com/krishnaSureshFor/tnforest_kml_to_grid_v2.0/blob/main/public_kml/${fileId}.kml`;
+    // --- 3. Build CORS-safe jsDelivr URL ---
+    const kmlUrl = `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
     console.log("📂 Fetching KML from:", kmlUrl);
 
-    // --- Fetch and render KML ---
+    // --- 4. Fetch and render the KML ---
     fetch(kmlUrl, { mode: "cors", cache: "no-cache" })
       .then(res => {
         console.log("Response status:", res.status);
@@ -72,17 +71,19 @@
         const kml = parser.parseFromString(kmlText, "text/xml");
         const layer = new L.KML(kml);
 
-        // Wait until fully parsed
+        // Wait until KML fully parsed before fitting bounds
         layer.on("loaded", () => {
-          console.log("✅ KML fully loaded, adjusting map bounds...");
+          console.log("✅ KML fully loaded — adjusting map bounds...");
           const bounds = layer.getBounds();
           if (bounds && bounds.isValid && bounds.isValid()) {
             map.fitBounds(bounds);
           }
 
-          // Force visible style if KML has no fill/outline
+          // Optional: force visible style
           layer.eachLayer(l => {
-            if (l.setStyle) l.setStyle({ color: "#FF0000", weight: 1, fillOpacity: 0.15 });
+            if (l.setStyle) {
+              l.setStyle({ color: "#FF0000", weight: 1, fillOpacity: 0.15 });
+            }
           });
         });
 
@@ -90,7 +91,7 @@
       })
       .catch(err => {
         console.error("❌ Failed to load KML:", err);
-        alert(`Could not load KML (${err.message}). Check console for details.`);
+        alert(`Could not load KML. Ensure the file exists and repo is public.`);
       });
   </script>
 </body>
