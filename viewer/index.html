@@ -4,28 +4,16 @@
   <meta charset="utf-8" />
   <title>🌿 Forest Grid Map Viewer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Leaflet core -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-  <!-- KML parser that supports polygons -->
-  <script src="https://unpkg.com/leaflet-kml/L.KML.js"></script>
-
+  <script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js"></script>
   <style>
     html, body, #map { height: 100%; margin: 0; padding: 0; }
     #header {
-      position: absolute;
-      top: 10px; left: 50%; transform: translateX(-50%);
-      background: rgba(255,255,255,0.9);
-      padding: 8px 16px; border-radius: 10px;
-      font-family: Arial, sans-serif; font-size: 16px;
-      font-weight: 600; color: #2b9348;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      z-index: 9999;
+      position:absolute;top:10px;left:50%;transform:translateX(-50%);
+      background:rgba(255,255,255,0.9);padding:8px 16px;border-radius:10px;
+      font-family:Arial,sans-serif;font-weight:600;font-size:16px;color:#2b9348;
+      box-shadow:0 2px 6px rgba(0,0,0,0.2);z-index:9999;
     }
   </style>
 </head>
@@ -34,36 +22,43 @@
   <div id="map"></div>
 
   <script>
-  // --- Map setup ---
-  const map = L.map('map').setView([11.3, 78.5], 10);
-  L.tileLayer(
-    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    { attribution: '&copy; Esri — Satellite Imagery', maxZoom: 19 }
-  ).addTo(map);
+    // --- 1. Create map ---
+    const map = L.map("map").setView([11.3, 78.5], 10);
+    L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      { attribution: "&copy; Esri — Satellite Imagery", maxZoom: 19 }
+    ).addTo(map);
 
-  // --- Parse ?id= from URL ---
-  const params = new URLSearchParams(window.location.search);
-  const fileId = params.get('id');
+    // --- 2. Extract ?id= from URL ---
+    const params = new URLSearchParams(window.location.search);
+    const fileId = params.get("id");
+    if (!fileId) {
+      alert("❌ Missing KML id in URL!");
+      throw new Error("No ?id= parameter");
+    }
 
-  if (fileId) {
-    // Use raw.githubusercontent.com URL to bypass CORS
+    // --- 3. Build full raw GitHub URL ---
     const kmlUrl =
       `https://raw.githubusercontent.com/krishnaSureshFor/tnforest_kml_to_grid_v2.0/main/public_kml/${fileId}.kml`;
-    console.log("Loading KML:", kmlUrl);
+    console.log("Attempting to load:", kmlUrl);
 
-    // Load via omnivore (CORS-safe)
-    omnivore.kml(kmlUrl)
-      .on("ready", function () {
-        map.fitBounds(this.getBounds());
+    // --- 4. Fetch and load KML safely ---
+    fetch(kmlUrl)
+      .then(response => {
+        if (!response.ok) throw new Error("KML not found or not yet deployed");
+        return response.text();
       })
-      .on("error", function (e) {
-        console.error("KML load failed:", e);
-        alert("❌ Could not load KML — check file path or ID.");
+      .then(kmlText => {
+        // omnivore handles polygons correctly when served raw
+        const layer = omnivore.kml.parse(kmlText);
+        layer.on("ready", () => map.fitBounds(layer.getBounds()));
+        layer.addTo(map);
+        console.log("✅ KML loaded successfully");
       })
-      .addTo(map);
-  } else {
-    alert("❌ Invalid or missing KML ID in URL.");
-  }
-</script>
+      .catch(err => {
+        console.error("❌ Failed to load KML:", err);
+        alert("Could not load KML file. If you just generated it, wait 1–2 min for GitHub Pages to update.");
+      });
+  </script>
 </body>
 </html>
