@@ -20,6 +20,33 @@
 <body>
   <div id="header">🌿 Forest Department — Grid Viewer</div>
   <div id="map"></div>
+  <script>
+    // --- Get KML ID from URL ---
+    const params = new URLSearchParams(window.location.search);
+    const kmlId = params.get("id");
+  
+    if (kmlId) {
+      const kmlUrl = `../public_kml/${kmlId}.kml`;
+  
+      // --- Use Leaflet + omnivore or leaflet-kml plugin ---
+      if (window.L && L.kml) {
+        fetch(kmlUrl)
+          .then(res => res.text())
+          .then(kmlText => {
+            const parser = new DOMParser();
+            const kml = parser.parseFromString(kmlText, "text/xml");
+            const track = new L.KML(kml);
+            map.addLayer(track);
+            map.fitBounds(track.getBounds());
+          })
+          .catch(err => console.error("Failed to load KML:", err));
+      } else {
+        console.error("Leaflet KML plugin not loaded!");
+      }
+    } else {
+      console.warn("No ?id= parameter found in URL — showing empty map");
+    }
+  </script>
 
   <script>
     // --- Parse ID from URL ---
