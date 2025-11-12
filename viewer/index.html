@@ -42,23 +42,27 @@
       `https://raw.githubusercontent.com/krishnaSureshFor/tnforest_kml_to_grid_v2.0/main/public_kml/${fileId}.kml`;
     console.log("Attempting to load:", kmlUrl);
 
-    // --- 4. Fetch and load KML safely ---
-    fetch(kmlUrl)
-      .then(response => {
-        if (!response.ok) throw new Error("KML not found or not yet deployed");
-        return response.text();
-      })
-      .then(kmlText => {
-        // omnivore handles polygons correctly when served raw
-        const layer = omnivore.kml.parse(kmlText);
-        layer.on("ready", () => map.fitBounds(layer.getBounds()));
-        layer.addTo(map);
-        console.log("✅ KML loaded successfully");
-      })
-      .catch(err => {
-        console.error("❌ Failed to load KML:", err);
-        alert("Could not load KML file. If you just generated it, wait 1–2 min for GitHub Pages to update.");
-      });
+    // --- 3. Build full jsDelivr CDN URL ---
+const kmlUrl =
+  `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
+console.log("Fetching KML from CDN:", kmlUrl);
+
+// --- 4. Load KML safely ---
+fetch(kmlUrl)
+  .then(response => {
+    if (!response.ok) throw new Error("KML not found on CDN");
+    return response.text();
+  })
+  .then(kmlText => {
+    const layer = omnivore.kml.parse(kmlText);
+    layer.on("ready", () => map.fitBounds(layer.getBounds()));
+    layer.addTo(map);
+    console.log("✅ KML loaded from CDN");
+  })
+  .catch(err => {
+    console.error("❌ Failed to load KML:", err);
+    alert("Could not load KML. Please ensure the file ID is correct.");
+  });
   </script>
 </body>
 </html>
