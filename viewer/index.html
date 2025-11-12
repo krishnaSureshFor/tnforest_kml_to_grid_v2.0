@@ -38,9 +38,16 @@
   <div id="header">🌿 Forest Department — Grid Viewer</div>
   <div id="map"></div>
 
+  // index (1).html (Replace the entire <script> block with this)
+
   <script>
     // --- 1. Initialize Map ---
-    const map = L.map("map").setView([11.3, 78.5], 10);
+    // Start with a default, safe view
+    const DEFAULT_LAT = 11.3;
+    const DEFAULT_LON = 78.5;
+    const DEFAULT_ZOOM = 10;
+
+    const map = L.map("map").setView([DEFAULT_LAT, DEFAULT_LON], DEFAULT_ZOOM);
     L.tileLayer(
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       { attribution: "&copy; Esri — Satellite Imagery", maxZoom: 19 }
@@ -49,12 +56,15 @@
     // --- 2. Get ?id= parameter from URL ---
     const params = new URLSearchParams(window.location.search);
     const fileId = params.get("id");
+    
     if (!fileId) {
-      alert("❌ Missing KML ID in URL!");
-      throw new Error("No ?id= parameter found");
+      alert("❌ Missing KML ID in URL! Please ensure you use a link from the generated PDF.");
+      // Do NOT throw an error, just stop KML loading and show map at default view
+      return; 
     }
 
     // --- 3. Build CORS-safe jsDelivr URL ---
+    // This assumes the file is in: /public_kml/
     const kmlUrl = `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
     console.log("📂 Fetching KML from:", kmlUrl);
 
@@ -62,36 +72,48 @@
     fetch(kmlUrl, { mode: "cors", cache: "no-cache" })
       .then(res => {
         console.log("Response status:", res.status);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        if (!res.ok) {
+          // Add a better error message for 404/403
+          let errorMsg = `HTTP Error ${res.status}. File may not exist yet or repo is private.`;
+          throw new Error(errorMsg);
+        }
         return res.text();
       })
       .then(kmlText => {
         console.log("KML text length:", kmlText.length);
         const parser = new DOMParser();
         const kml = parser.parseFromString(kmlText, "text/xml");
+        
+        // --- Core KML Layer ---
         const layer = new L.KML(kml);
+        map.addLayer(layer);
 
         // Wait until KML fully parsed before fitting bounds
         layer.on("loaded", () => {
           console.log("✅ KML fully loaded — adjusting map bounds...");
+          
           const bounds = layer.getBounds();
+          
+          // Check if bounds are valid (e.g., KML is not empty)
           if (bounds && bounds.isValid && bounds.isValid()) {
-            map.fitBounds(bounds);
+            map.fitBounds(bounds.pad(0.1)); // Add 10% padding
+            console.log("Map bounds fitted successfully.");
+          } else {
+            console.warn("⚠️ Invalid KML bounds, file might be empty or corrupt. Staying at default view.");
           }
 
-          // Optional: force visible style
+          // Optional: force visible style (using the same style logic as before)
           layer.eachLayer(l => {
             if (l.setStyle) {
-              l.setStyle({ color: "#FF0000", weight: 1, fillOpacity: 0.15 });
+              // Set a consistent visible style for all features (Polygons, Lines, etc.)
+              l.setStyle({ color: "#FF0000", weight: 2, fillOpacity: 0.2 });
             }
           });
         });
-
-        map.addLayer(layer);
       })
       .catch(err => {
         console.error("❌ Failed to load KML:", err);
-        alert(`Could not load KML. Ensure the file exists and repo is public.`);
+        alert(`Could not load KML. Error: ${err.message}`);
       });
   </script>
 </body>
