@@ -169,24 +169,42 @@ def utm_crs_for_lonlat(lon, lat):
     return CRS.from_epsg(epsg)
 
 def make_grid_exact_clipped(polygons_ll, cell_size_m=100):
+    """Generate clipped grid cells (ensures valid non-empty geometries in EPSG:4326)."""
     merged_ll = unary_union(polygons_ll)
+
+    # --- Reproject AOI to local UTM ---
     centroid = merged_ll.centroid
     utm = utm_crs_for_lonlat(centroid.x, centroid.y)
-    merged_utm = gpd.GeoSeries([merged_ll], crs=4326).to_crs(utm)
+    merged_utm = gpd.GeoSeries([merged_ll], crs="EPSG:4326").to_crs(utm)
+
     minx, miny, maxx, maxy = merged_utm.total_bounds
-    cols, rows = int(math.ceil((maxx - minx) / cell_size_m)), int(math.ceil((maxy - miny) / cell_size_m))
+    cols = int(math.ceil((maxx - minx) / cell_size_m))
+    rows = int(math.ceil((maxy - miny) / cell_size_m))
+
     cells = []
     aoi_union = merged_utm.unary_union
+
     for i in range(cols):
         for j in range(rows):
             x0, y0 = minx + i * cell_size_m, miny + j * cell_size_m
             cell = box(x0, y0, x0 + cell_size_m, y0 + cell_size_m)
             inter = cell.intersection(aoi_union)
-            if not inter.is_empty:
+            # --- Filter valid polygons only ---
+            if not inter.is_empty and inter.is_valid and inter.area > 0:
                 cells.append(inter)
-    cells_ll = [gpd.GeoSeries([c], crs=utm).to_crs(4326).iloc[0] for c in cells]
-    return cells_ll, merged_ll
 
+    # --- Reproject final grid cells back to EPSG:4326 for KML ---
+    if not cells:
+        print("⚠️ No valid grid cells generated — check AOI extent.")
+    cells_ll = [
+        gpd.GeoSeries([c], crs=utm).to_crs(epsg=4326).iloc[0]
+        for c in cells if not c.is_empty
+    ]
+
+    # --- Also ensure merged_ll is lat/lon ---
+    merged_ll = gpd.GeoSeries([merged_ll], crs=4326).to_crs(epsg=4326).iloc[0]
+
+    return cells_ll, merged_ll
 # ================================================================
 # KML GENERATORS (with Description + Balloon Popups)
 # ================================================================
@@ -713,6 +731,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
