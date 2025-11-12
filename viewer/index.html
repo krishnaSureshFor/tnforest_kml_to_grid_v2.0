@@ -22,47 +22,43 @@
   <div id="map"></div>
 
   <script>
-    // --- 1. Create map ---
-    const map = L.map("map").setView([11.3, 78.5], 10);
-    L.tileLayer(
-      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      { attribution: "&copy; Esri — Satellite Imagery", maxZoom: 19 }
-    ).addTo(map);
+  // --- 1. Create map ---
+  const map = L.map("map").setView([11.3, 78.5], 10);
 
-    // --- 2. Extract ?id= from URL ---
-    const params = new URLSearchParams(window.location.search);
-    const fileId = params.get("id");
-    if (!fileId) {
-      alert("❌ Missing KML id in URL!");
-      throw new Error("No ?id= parameter");
+  L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    {
+      attribution: "&copy; Esri — Satellite Imagery",
+      maxZoom: 19,
     }
+  ).addTo(map);
 
-    // --- 3. Build full raw GitHub URL ---
-    const kmlUrl =
-      `https://raw.githubusercontent.com/krishnaSureshFor/tnforest_kml_to_grid_v2.0/main/public_kml/${fileId}.kml`;
-    console.log("Attempting to load:", kmlUrl);
+  // --- 2. Extract ?id= from URL ---
+  const params = new URLSearchParams(window.location.search);
+  const fileId = params.get("id");
 
-    // --- 3. Build full jsDelivr CDN URL ---
-const kmlUrl =
-  `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
-console.log("Fetching KML from CDN:", kmlUrl);
+  if (!fileId) {
+    alert("❌ Missing KML id in URL!");
+    throw new Error("No ?id= parameter in URL");
+  }
 
-// --- 4. Load KML safely ---
-fetch(kmlUrl)
-  .then(response => {
-    if (!response.ok) throw new Error("KML not found on CDN");
-    return response.text();
-  })
-  .then(kmlText => {
-    const layer = omnivore.kml.parse(kmlText);
-    layer.on("ready", () => map.fitBounds(layer.getBounds()));
-    layer.addTo(map);
-    console.log("✅ KML loaded from CDN");
-  })
-  .catch(err => {
-    console.error("❌ Failed to load KML:", err);
-    alert("Could not load KML. Please ensure the file ID is correct.");
-  });
-  </script>
+  // ✅ 3. Build jsDelivr CDN URL (instant load, no cache delay)
+  const kmlUrl =
+    `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
+
+  console.log("✅ Fetching KML from:", kmlUrl);
+
+  // ✅ 4. Load KML safely
+  const kmlLayer = omnivore.kml(kmlUrl)
+    .on("ready", function () {
+      map.fitBounds(kmlLayer.getBounds());
+      console.log("✅ KML loaded successfully");
+    })
+    .on("error", function (e) {
+      console.error("❌ Failed to load KML:", e);
+      alert("Could not load KML. Make sure the ID exists.");
+    })
+    .addTo(map);
+</script>
 </body>
 </html>
