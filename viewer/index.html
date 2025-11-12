@@ -4,16 +4,27 @@
   <meta charset="utf-8" />
   <title>🌿 Forest Grid Map Viewer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Leaflet core -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js"></script>
+
+  <!-- Leaflet KML parser -->
+  <script src="https://unpkg.com/leaflet-kml@latest/L.KML.js"></script>
+
   <style>
     html, body, #map { height: 100%; margin: 0; padding: 0; }
     #header {
-      position:absolute;top:10px;left:50%;transform:translateX(-50%);
-      background:rgba(255,255,255,0.9);padding:8px 16px;border-radius:10px;
+      position:absolute;
+      top:10px;left:50%;transform:translateX(-50%);
+      background:rgba(255,255,255,0.9);
+      padding:8px 16px;border-radius:10px;
       font-family:Arial,sans-serif;font-weight:600;font-size:16px;color:#2b9348;
-      box-shadow:0 2px 6px rgba(0,0,0,0.2);z-index:9999;
+      box-shadow:0 2px 6px rgba(0,0,0,0.2);
+      z-index:9999;
     }
   </style>
 </head>
@@ -22,43 +33,46 @@
   <div id="map"></div>
 
   <script>
-  // --- 1. Create map ---
-  const map = L.map("map").setView([11.3, 78.5], 10);
+    // --- Initialize the map ---
+    const map = L.map("map").setView([11.3, 78.5], 10);
 
-  L.tileLayer(
-    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    {
-      attribution: "&copy; Esri — Satellite Imagery",
-      maxZoom: 19,
+    // --- Add satellite basemap ---
+    L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      { attribution: "&copy; Esri — Satellite Imagery", maxZoom: 19 }
+    ).addTo(map);
+
+    // --- Read the file ID from URL ---
+    const params = new URLSearchParams(window.location.search);
+    const fileId = params.get("id");
+    if (!fileId) {
+      alert("❌ Missing KML ID in URL!");
+      throw new Error("No ?id= parameter found");
     }
-  ).addTo(map);
 
-  // --- 2. Extract ?id= from URL ---
-  const params = new URLSearchParams(window.location.search);
-  const fileId = params.get("id");
+    // --- Construct jsDelivr CDN URL ---
+    const kmlUrl =
+      `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
+    console.log("Loading KML from:", kmlUrl);
 
-  if (!fileId) {
-    alert("❌ Missing KML id in URL!");
-    throw new Error("No ?id= parameter in URL");
-  }
-
-  // ✅ 3. Build jsDelivr CDN URL (instant load, no cache delay)
-  const kmlUrl =
-    `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
-
-  console.log("✅ Fetching KML from:", kmlUrl);
-
-  // ✅ 4. Load KML safely
-  const kmlLayer = omnivore.kml(kmlUrl)
-    .on("ready", function () {
-      map.fitBounds(kmlLayer.getBounds());
-      console.log("✅ KML loaded successfully");
-    })
-    .on("error", function (e) {
-      console.error("❌ Failed to load KML:", e);
-      alert("Could not load KML. Make sure the ID exists.");
-    })
-    .addTo(map);
-</script>
+    // --- Fetch and parse manually using L.KML ---
+    fetch(kmlUrl)
+      .then(res => {
+        if (!res.ok) throw new Error("KML not found on CDN");
+        return res.text();
+      })
+      .then(kmlText => {
+        const parser = new DOMParser();
+        const kml = parser.parseFromString(kmlText, "text/xml");
+        const layer = new L.KML(kml);
+        map.addLayer(layer);
+        map.fitBounds(layer.getBounds());
+        console.log("✅ KML loaded successfully");
+      })
+      .catch(err => {
+        console.error("❌ Failed to load KML:", err);
+        alert("Could not load KML. Ensure the file ID exists and the repo is public.");
+      });
+  </script>
 </body>
 </html>
