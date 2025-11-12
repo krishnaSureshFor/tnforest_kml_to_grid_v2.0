@@ -4,13 +4,9 @@
   <meta charset="utf-8" />
   <title>🌿 Forest Grid Map Viewer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABr0lEQVQ4T7WSv0sDQRiGv7nOQSCDDAaK0IMYhKhYGBSKkqCg4CXyBf8AQEY8RFRMLwU4bR4BnoeBKYxTzTwM7P0rVpmzXZl55v+edv8fyFiJutMxsc8bMDLg/BCzP6f0Sa2k+SQYqFtsku4IgRCr5+LfHqZX/02OrQwJrU0P09Ki2uNRPRiGs9zxe5DYAU1zgD0tbmIhSAs7uNP0Icz0z1HEh9Pc9zZz8DkLWpZXwJGUmRjEO93blcb7QxCCU5LZSqX+0iX6VhhJTBAtn3EYYHETyW+TqDWEiWmppRPRz8AMCB3RMXGlA5MwnuwCnxH4ovrLRZcCkyQfMKE44B9yKUJMF2k0A1B1lQK08m8JbA/3CX8wP9OH3MxUu0MsGxTETufyQdYdfgkuRvaKq16m03bncwhA0x8z7ZAjCik0qZJZxh4hClFlPAswzAQf++DW66vHj/WQfyW0R0zLKo9wAAAABJRU5ErkJggg==" type="image/png">
 
   <!-- Leaflet core -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <!-- Leaflet KML parser -->
@@ -20,10 +16,15 @@
     html, body, #map { height: 100%; margin: 0; padding: 0; }
     #header {
       position: absolute;
-      top: 10px; left: 50%; transform: translateX(-50%);
-      background: rgba(255,255,255,0.9);
-      padding: 8px 16px; border-radius: 10px;
-      font-family: Arial, sans-serif; font-weight: 600; font-size: 16px;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      font-weight: 600;
+      font-size: 16px;
       color: #2b9348;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       z-index: 9999;
@@ -47,17 +48,19 @@
     // --- Read the file ID from URL ---
     const params = new URLSearchParams(window.location.search);
     const fileId = params.get("id");
+
     if (!fileId) {
       alert("❌ Missing KML ID in URL!");
       throw new Error("No ?id= parameter found");
     }
 
-    // ✅ Construct correct Raw GitHub URL (no spaces!)
-    const kmlUrl = `https://raw.githubusercontent.com/krishnaSureshFor/tnforest_kml_to_grid_v2.0/main/public_kml/${fileId}.kml`;
+    // --- Construct GitHub Raw URL ---
+    const kmlUrl =
+      `https://raw.githubusercontent.com/krishnaSureshFor/tnforest_kml_to_grid_v2.0/main/public_kml/${fileId}.kml`;
+
     console.log("📂 Fetching KML from:", kmlUrl);
 
-    // --- Fetch and parse manually using L.KML ---
-    console.log("📂 Fetching KML from:", kmlUrl);
+    // --- Fetch and render KML ---
     fetch(kmlUrl, { mode: "cors", cache: "no-cache" })
       .then(res => {
         console.log("Response status:", res.status);
@@ -69,27 +72,27 @@
         const parser = new DOMParser();
         const kml = parser.parseFromString(kmlText, "text/xml");
         const layer = new L.KML(kml);
-      
+
+        // Wait until fully parsed
         layer.on("loaded", () => {
           console.log("✅ KML fully loaded, adjusting map bounds...");
           const bounds = layer.getBounds();
           if (bounds && bounds.isValid && bounds.isValid()) {
             map.fitBounds(bounds);
           }
-      
-          // Make red grid visible even if KML uses fill=0
-          layer.eachLayer(function (l) {
+
+          // Force visible style if KML has no fill/outline
+          layer.eachLayer(l => {
             if (l.setStyle) l.setStyle({ color: "#FF0000", weight: 1, fillOpacity: 0.15 });
           });
         });
-      
+
         map.addLayer(layer);
       })
       .catch(err => {
         console.error("❌ Failed to load KML:", err);
         alert(`Could not load KML (${err.message}). Check console for details.`);
       });
-
   </script>
 </body>
 </html>
