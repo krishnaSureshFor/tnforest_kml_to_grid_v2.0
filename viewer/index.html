@@ -7,28 +7,28 @@
 
   <link
     rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    href="//unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="//unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <script src="https://unpkg.com/leaflet-kml@latest/L.KML.js"></script>
+  <script src="//unpkg.com/leaflet-kml@latest/L.KML.js"></script>
 
   <style>
     /* 🚨 CRITICAL FIX: Ensure the HTML, BODY, and MAP elements occupy the full screen height */
     html, body {
-      height: 100%;       /* Force HTML and BODY to take full viewport height */
+      height: 100%;       
       width: 100%;
       margin: 0;
       padding: 0;
-      overflow: hidden;   /* Prevents scrollbars */
+      overflow: hidden;   
     }
 
     #map { 
-      height: 100%;       /* Force the map div to take 100% of the body height */
+      height: 100%;       
       width: 100%;
       margin: 0; 
       padding: 0; 
-      z-index: 1;         /* Map is layer 1 */
+      z-index: 1;         
     }
     
     #header {
@@ -76,10 +76,11 @@
 <body>
   <div id="header">🌿 Forest Department — Grid Viewer</div>
   <div id="map"></div>
-  <div id="log-batch">**Log Batch** (Reload the page to start logging)</div>
+  <div id="log-batch">**Log Batch** (Check browser console for true error)</div>
 
   <script>
     // --- Logging Utility Function ---
+    // NOTE: If this section fails, you MUST use F12 Console/Network tabs.
     const logContainer = document.getElementById('log-batch');
     const originalConsole = { 
         log: console.log, 
@@ -88,33 +89,23 @@
     };
 
     function appendLog(type, message) {
-        // Use a DOM element for the message
         const entry = document.createElement('div');
         entry.className = `log-entry log-${type}`;
         
-        // Convert objects/errors to strings for display
         let logMessage = '';
         if (typeof message === 'object' && message !== null) {
-            if (message.message) {
-                logMessage = message.message;
-            } else {
-                logMessage = JSON.stringify(message, null, 2).substring(0, 200) + '...';
-            }
+            logMessage = message.message || JSON.stringify(message, null, 2).substring(0, 200) + '...';
         } else {
             logMessage = String(message);
         }
 
         entry.textContent = `[${type.toUpperCase()}] ${logMessage}`;
         
-        // Prepend the new entry
         if (logContainer.firstChild && logContainer.firstChild.nodeName !== 'B') {
             logContainer.insertBefore(entry, logContainer.firstChild);
         } else {
             logContainer.appendChild(entry);
         }
-        
-        // Keep the scroll at the top (for chronological view)
-        // logContainer.scrollTop = 0; 
     }
 
     // Override console methods to capture output
