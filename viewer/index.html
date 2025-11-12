@@ -5,18 +5,19 @@
   <title>🌿 Forest Grid Map Viewer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Leaflet core -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <!-- Leaflet KML parser -->
   <script src="https://unpkg.com/leaflet-kml@latest/L.KML.js"></script>
 
   <style>
+    /* Full height setup */
     html, body, #map { height: 100%; margin: 0; padding: 0; }
+    
+    /* Header styling */
     #header {
       position: absolute;
       top: 10px;
@@ -37,15 +38,17 @@
 <body>
   <div id="header">🌿 Forest Department — Grid Viewer</div>
   <div id="map"></div>
-  
+
   <script>
     // --- 1. Initialize Map ---
-    // Start with a default, safe view
     const DEFAULT_LAT = 11.3;
     const DEFAULT_LON = 78.5;
     const DEFAULT_ZOOM = 10;
-
+    
+    // Set map to a default, safe view (e.g., central Tamil Nadu)
     const map = L.map("map").setView([DEFAULT_LAT, DEFAULT_LON], DEFAULT_ZOOM);
+    
+    // Use Esri Satellite Layer
     L.tileLayer(
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       { attribution: "&copy; Esri — Satellite Imagery", maxZoom: 19 }
@@ -57,12 +60,12 @@
     
     if (!fileId) {
       alert("❌ Missing KML ID in URL! Please ensure you use a link from the generated PDF.");
-      // Do NOT throw an error, just stop KML loading and show map at default view
+      // Stop execution, map will display at default location
       return; 
     }
 
     // --- 3. Build CORS-safe jsDelivr URL ---
-    // This assumes the file is in: /public_kml/
+    // This is the correct path for KML hosted in your public_kml folder on the 'main' branch
     const kmlUrl = `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
     console.log("📂 Fetching KML from:", kmlUrl);
 
@@ -71,8 +74,7 @@
       .then(res => {
         console.log("Response status:", res.status);
         if (!res.ok) {
-          // Add a better error message for 404/403
-          let errorMsg = `HTTP Error ${res.status}. File may not exist yet or repo is private.`;
+          let errorMsg = `HTTP Error ${res.status}. KML file "${fileId}.kml" not found on GitHub.`;
           throw new Error(errorMsg);
         }
         return res.text();
@@ -82,36 +84,43 @@
         const parser = new DOMParser();
         const kml = parser.parseFromString(kmlText, "text/xml");
         
-        // --- Core KML Layer ---
+        // Create the KML layer
         const layer = new L.KML(kml);
         map.addLayer(layer);
 
-        // Wait until KML fully parsed before fitting bounds
+        // --- FIX: Ensure map fitting occurs AFTER KML is fully processed ---
         layer.on("loaded", () => {
           console.log("✅ KML fully loaded — adjusting map bounds...");
           
           const bounds = layer.getBounds();
           
-          // Check if bounds are valid (e.g., KML is not empty)
+          // Check if bounds are valid before attempting to zoom
           if (bounds && bounds.isValid && bounds.isValid()) {
-            map.fitBounds(bounds.pad(0.1)); // Add 10% padding
+            // Use .pad(0.1) to add a 10% buffer around the KML geometry
+            map.fitBounds(bounds.pad(0.1)); 
             console.log("Map bounds fitted successfully.");
           } else {
-            console.warn("⚠️ Invalid KML bounds, file might be empty or corrupt. Staying at default view.");
+            console.warn("⚠️ Invalid KML bounds (file might be empty). Staying at default view.");
           }
 
-          // Optional: force visible style (using the same style logic as before)
+          // Optional: Force a consistent, visible style on all KML features
           layer.eachLayer(l => {
             if (l.setStyle) {
-              // Set a consistent visible style for all features (Polygons, Lines, etc.)
-              l.setStyle({ color: "#FF0000", weight: 2, fillOpacity: 0.2 });
+              l.setStyle({ 
+                color: "#FF0000",      // Red outline for visibility
+                weight: 2,             // Slightly thicker line
+                opacity: 1.0,          // Fully opaque line
+                fillColor: "#FF0000",  // Red fill
+                fillOpacity: 0.2       // Light fill
+              });
             }
           });
         });
       })
       .catch(err => {
+        // Display the detailed error from the fetch process
         console.error("❌ Failed to load KML:", err);
-        alert(`Could not load KML. Error: ${err.message}`);
+        alert(`Could not load KML. Please check: ${err.message}. Ensure the KML file exists in the public_kml folder of your Git repo.`);
       });
   </script>
 </body>
