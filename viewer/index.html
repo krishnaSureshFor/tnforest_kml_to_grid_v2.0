@@ -12,11 +12,26 @@
   />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+  <!-- Patch Leaflet for MultiPolygon support -->
+  <script>
+    // ✅ Fix for "L.MultiPolygon is not a constructor" error
+    if (typeof L.MultiPolygon === "undefined") {
+      L.MultiPolygon = function (latlngs, options) {
+        return new L.Polygon(latlngs, options);
+      };
+    }
+  </script>
+
   <!-- Leaflet KML parser -->
   <script src="https://unpkg.com/leaflet-kml@latest/L.KML.js"></script>
 
   <style>
-    html, body, #map { height: 100%; margin: 0; padding: 0; }
+    html, body, #map {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #e9f7ef;
+    }
     #header {
       position: absolute;
       top: 10px;
@@ -32,21 +47,36 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       z-index: 9999;
     }
+    #loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px 40px;
+      border-radius: 12px;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      color: #2b9348;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+      z-index: 9998;
+    }
   </style>
 </head>
 <body>
   <div id="header">🌿 Forest Department — Grid Viewer</div>
+  <div id="loading">📂 Fetching KML... please wait</div>
   <div id="map"></div>
 
   <script>
-    // --- 1️⃣ Initialize the map ---
+    // --- 1️⃣ Initialize map ---
     const map = L.map("map").setView([11.3, 78.5], 10);
     L.tileLayer(
       "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
       { attribution: "&copy; Esri — Satellite Imagery", maxZoom: 19 }
     ).addTo(map);
 
-    // --- 2️⃣ Get the ?id= parameter ---
+    // --- 2️⃣ Get KML file ID from URL ---
     const params = new URLSearchParams(window.location.search);
     const fileId = params.get("id");
     if (!fileId) {
@@ -54,11 +84,12 @@
       throw new Error("No ?id= parameter found");
     }
 
-    // --- 3️⃣ Build CORS-safe jsDelivr URL ---
-    const kmlUrl = `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
+    // --- 3️⃣ Build GitHub CDN URL ---
+    const kmlUrl =
+      `https://cdn.jsdelivr.net/gh/krishnaSureshFor/tnforest_kml_to_grid_v2.0@main/public_kml/${fileId}.kml`;
     console.log("📂 Fetching KML from:", kmlUrl);
 
-    // --- 4️⃣ Fetch, clean, and render the KML ---
+    // --- 4️⃣ Fetch, clean, and load KML ---
     fetch(kmlUrl, { mode: "cors", cache: "no-cache" })
       .then(res => {
         console.log("Response status:", res.status);
@@ -68,24 +99,31 @@
       .then(kmlText => {
         console.log("KML text length:", kmlText.length);
 
-        // 🧹 Strip XML namespace prefixes like "ns0:"
-        const cleanText = kmlText.replace(/<\/*\w+:/g, match => match.replace(/[\w:]+:/, ""));
+        // 🧹 Strip XML namespace prefixes like ns0:
+        const cleanText = kmlText.replace(/<\/*\w+:/g, m => m.replace(/[\w:]+:/, ""));
         const parser = new DOMParser();
         const kml = parser.parseFromString(cleanText, "text/xml");
         const layer = new L.KML(kml);
 
-        // Wait until the KML is fully parsed
+        // ✅ When fully loaded
         layer.on("loaded", () => {
-          console.log("✅ KML fully loaded — adjusting map bounds...");
+          console.log("✅ KML parsed successfully");
+          document.getElementById("loading").style.display = "none";
+
           const bounds = layer.getBounds();
           if (bounds && bounds.isValid && bounds.isValid()) {
             map.fitBounds(bounds);
           }
 
-          // Make sure polygons are visible
+          // Style polygons (for clarity)
           layer.eachLayer(l => {
             if (l.setStyle) {
-              l.setStyle({ color: "#FF0000", weight: 1, fillOpacity: 0.15 });
+              l.setStyle({
+                color: "#FF0000",
+                weight: 1.2,
+                fillColor: "#FF6347",
+                fillOpacity: 0.2,
+              });
             }
           });
         });
@@ -94,7 +132,8 @@
       })
       .catch(err => {
         console.error("❌ Failed to load KML:", err);
-        alert(`Could not load KML. Ensure the file exists and repo is public.`);
+        document.getElementById("loading").style.display = "none";
+        alert("⚠️ Could not load KML. Ensure the file ID exists and the repo is public.");
       });
   </script>
 </body>
