@@ -48,7 +48,7 @@ def make_qr_code(url):
 # ================================================================
 # APP CONFIG + THEME
 # ================================================================
-st.set_page_config(page_title="Forest Department — KML Grid Generator v4.3", layout="wide")
+st.set_page_config(page_title="KML Grid Generator v2.0 - Unified Invasive Report", layout="wide")
 
 # 🌳 Custom gradient background and theme
 st.markdown("""
@@ -96,7 +96,7 @@ st.markdown("""
 background:linear-gradient(90deg, #4caf50, #81c784);
 border-radius:10px; color:white; font-size:28px; font-weight:700;
 box-shadow:0 4px 10px rgba(0,0,0,0.25); letter-spacing:1px;'>
-🌿 Forest Department — KML Grid Generator v4.3
+🌿 KML Grid Generator v2.0
 </div>
 """, unsafe_allow_html=True)
 
@@ -106,20 +106,20 @@ box-shadow:0 4px 10px rgba(0,0,0,0.25); letter-spacing:1px;'>
 st.sidebar.header("⚙️ Tool Settings")
 
 with st.sidebar.expander("📂 Upload Files (AOI / Overlay)", expanded=True):
-    uploaded_aoi = st.file_uploader("Upload AOI KML/KMZ", type=["kml", "kmz"], key="aoi_file")
-    overlay_file = st.file_uploader("Optional Overlay KML/KMZ", type=["kml", "kmz"], key="overlay_file")
+    uploaded_aoi = st.file_uploader("Upload KML/KMZ", type=["kml", "kmz"], key="aoi_file")
+    overlay_file = st.file_uploader("Optional Invasive KML/KMZ", type=["kml", "kmz"], key="overlay_file")
 
 
 with st.sidebar.expander("🌲 KML Label Details"):
-    range_name = st.text_input("Range Name", "Thammampatti", key="range_name")
-    rf_name = st.text_input("RF Name", "Karumalai", key="rf_name")
-    beat_name = st.text_input("Beat Name", "A1", key="beat_name")
-    year_of_work = st.text_input("Year of Work", "2024", key="year_of_work")
+    range_name = st.text_input("Range Name", placeholder="Range Name", key="range_name")
+    rf_name = st.text_input("RF Name", placeholder="RF/RL", key="rf_name")
+    beat_name = st.text_input("Beat Name", placeholder="Beat Name", key="beat_name")
+    year_of_work = st.text_input("Year of Work", placeholder="Year of Work", key="year_of_work")
 
 with st.sidebar.expander("📄 PDF Report Details"):
-    title_text = st.text_input("Report Title", "Removal of Invasive Species, Thammampatti Range", key="title_text")
-    density = st.text_input("Density", "Medium", key="density")
-    area_invasive = st.text_input("Area of Invasive (Ha)", "5", key="area_invasive")
+    title_text = st.text_input("Report Title", placeholder="Title, Range", key="title_text")
+    density = st.text_input("Density", placeholder="Medium/Light/Dense", key="density")
+    area_invasive = st.text_input("Area of Invasive (Ha)", placeholder="Area in Ha", key="area_invasive")
     cell_size = st.number_input("Grid Cell Size (m)", 10, 2000, 100, 10, key="cell_size")
     generate_pdf = st.checkbox("Generate PDF Report", value=True, key="generate_pdf")
 
@@ -232,8 +232,6 @@ def _make_grid_balloon_text(user_inputs):
         f"<b>Beat:</b> {user_inputs['beat_name']}<br>"
         f"<b>Year:</b> {user_inputs['year_of_work']}<br>"
         "<b>Area (Ha):</b> $[area_ha]<br>"
-        "<hr><i>Developed by Krishna, Thammampatti Range</i>"
-        "]]>"
     )
 
 def generate_grid_only_kml(cells_ll, merged_ll, user_inputs):
@@ -245,7 +243,7 @@ def generate_grid_only_kml(cells_ll, merged_ll, user_inputs):
     etree.SubElement(doc, "{%s}name" % ns).text = "Grid Only"
     etree.SubElement(doc, "{%s}description" % ns).text = (
         "Grid-only file with labeled cells for field use. "
-        "Developed by Krishna (Thammampatti Range)."
+        "Developed by Krishna."
     )
 
     style_grid = etree.SubElement(doc, "{%s}Style" % ns, id="gridStyle")
@@ -286,8 +284,7 @@ def generate_labeled_kml(cells_ll, merged_ll, user_inputs, overlay_gdf=None):
 
     etree.SubElement(doc, "{%s}name" % ns).text = "Labeled Grid + Overlay"
     etree.SubElement(doc, "{%s}description" % ns).text = (
-        "Labeled grid with overlay boundary. "
-        "Developed by Krishna (Thammampatti Range)."
+        "Developed by Krishna"
     )
 
     # Grid style
@@ -460,7 +457,7 @@ def build_pdf_report_standard(
     pdf.set_y(legend_y + 47)
     pdf.set_font("Helvetica", "I", 9)
     pdf.set_text_color(80, 80, 80)
-    pdf.multi_cell(0, 5, "Note: Satellite background (Esri) and boundaries are automatically generated. Developed by Rasipuram Range.")
+    pdf.multi_cell(0, 5, "Note: Satellite background (Esri) and boundaries are automatically generated.")
     pdf.set_text_color(0, 0, 0)
 
     # -------------------------------
@@ -727,10 +724,11 @@ if st.session_state.get("generated", False):
             )
 
 else:
-    st.info("👆 Upload AOI (KML/KMZ) and Overlay, adjust details, then click ▶ **Generate Grid**.")
+    st.info("👆 Use Sidebar Arrow to Upload AOI (KML/KMZ) and Overlay, adjust details, then click ▶ **Generate Grid**.")
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
