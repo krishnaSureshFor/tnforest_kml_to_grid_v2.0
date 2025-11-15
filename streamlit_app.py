@@ -48,7 +48,7 @@ def make_qr_code(url):
 # ================================================================
 # APP CONFIG + THEME
 # ================================================================
-st.set_page_config(page_title="KML Grid Generator v2.0 - Unified Invasive Report", layout="wide")
+st.set_page_config(page_title="KML Grid Generator v2.0", layout="wide")
 
 # 🌳 Custom gradient background and theme
 st.markdown("""
@@ -96,7 +96,7 @@ st.markdown("""
 background:linear-gradient(90deg, #4caf50, #81c784);
 border-radius:10px; color:white; font-size:28px; font-weight:700;
 box-shadow:0 4px 10px rgba(0,0,0,0.25); letter-spacing:1px;'>
-🌿 KML Grid Generator v2.0
+🌿 KML Grid Generator v2.0 - Unified Invasive Report 🌿
 </div>
 """, unsafe_allow_html=True)
 
@@ -728,6 +728,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
