@@ -424,7 +424,7 @@ def build_pdf_report_standard(
     grid_gdf.boundary.plot(ax=ax, color="red", linewidth=1)
     if overlay_gdf is not None and not overlay_gdf.empty:
         overlay_gdf.to_crs(3857).boundary.plot(ax=ax, color="#FFD700", linewidth=3)
-    ctx.add_basemap(ax, crs=3857, source=ctx.providers.Esri.WorldImagery)
+    ctx.add_basemap(ax, crs=3857, source=ctx.providers.Esri.WorldImagery, attribution=False)
     ax.axis("off")
     plt.tight_layout(pad=0.1)
     fig.savefig(map_img, dpi=250, bbox_inches="tight")
@@ -728,6 +728,7 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
+
 
 
 
