@@ -41,8 +41,7 @@ def make_qr_code(url):
     img.convert("RGB").save(buf, format="PNG", dpi=(190, 190))
     buf.seek(0)
     
-    # --- Place at native DPI so FPDF won't rescale ---
-    pdf.image(buf, x=20, y=y_pos + 5, w=40)
+    # NOTE: this helper is not used directly in the current PDF pipeline.
     return buf
 
 # ================================================================
@@ -163,6 +162,19 @@ def read_kml_safely(path):
         with fiona.Env():
             return gpd.read_file(path, engine="fiona", driver="KML")
 
+def clean_polygon_gdf(gdf: gpd.GeoDataFrame | None) -> gpd.GeoDataFrame | None:
+    """
+    Keep only valid Polygon / MultiPolygon geometries.
+    This avoids Folium 'coordinates' KeyError for non-polygon/empty features.
+    """
+    if gdf is None or gdf.empty:
+        return gdf
+    gdf = gdf[gdf.geometry.notnull()]
+    gdf = gdf[~gdf.geometry.is_empty]
+    gdf = gdf[gdf.geometry.is_valid]
+    gdf = gdf[gdf.geometry.geom_type.isin(["Polygon", "MultiPolygon"])]
+    return gdf
+
 def utm_crs_for_lonlat(lon, lat):
     zone = int((lon + 180) / 6) + 1
     epsg = 32600 + zone if lat >= 0 else 32700 + zone
@@ -205,6 +217,7 @@ def make_grid_exact_clipped(polygons_ll, cell_size_m=100):
     merged_ll = gpd.GeoSeries([merged_ll], crs=4326).to_crs(epsg=4326).iloc[0]
 
     return cells_ll, merged_ll
+
 # ================================================================
 # KML GENERATORS (with Description + Balloon Popups)
 # ================================================================
@@ -556,12 +569,12 @@ def build_pdf_report_standard(
 
     result = pdf.output(dest="S")
     return bytes(result) if isinstance(result, (bytes, bytearray)) else result.encode("latin1", errors="ignore")
+
 # ================================================================
 # MAIN APP CONTROL FLOW — Runs only on Generate
 # ================================================================
 
 # 1️⃣ Collect user input values into session state on every render
-# 1️⃣ Collect user input values (safe method — don't overwrite widget keys)
 st.session_state["user_inputs"] = {
     "range_name": st.session_state.get("range_name", range_name),
     "rf_name": st.session_state.get("rf_name", rf_name),
@@ -575,19 +588,24 @@ density = st.session_state.get("density", density)
 area_invasive = st.session_state.get("area_invasive", area_invasive)
 cell_size = st.session_state.get("cell_size", cell_size)
 
-
 # ================================================================
 # CACHED OUTPUT GENERATOR
 # ================================================================
 @st.cache_data(show_spinner=False)
 def generate_all_outputs(aoi_path, overlay_path, user_inputs, cell_size, title_text, density, area_invasive):
+    # --- Read and clean AOI to polygons only ---
     gdf = read_kml_safely(aoi_path)
+    gdf = clean_polygon_gdf(gdf)
+    if gdf is None or gdf.empty:
+        raise ValueError("AOI file has no valid polygon geometries. Remove points/lines/empty Placemarks and try again.")
+
     polygons = gdf.geometry
     cells_ll, merged_ll = make_grid_exact_clipped(polygons, cell_size)
 
     overlay_gdf = None
     if overlay_path:
         overlay_gdf = read_kml_safely(overlay_path).to_crs(4326)
+        overlay_gdf = clean_polygon_gdf(overlay_gdf)
 
     grid_only_kml = generate_grid_only_kml(cells_ll, merged_ll, user_inputs)
     labeled_kml = generate_labeled_kml(cells_ll, merged_ll, user_inputs, overlay_gdf)
@@ -643,15 +661,22 @@ if st.session_state.get("generated", False):
                 ov_path = os.path.join(tempfile.gettempdir(), "overlay.kml")
                 with open(ov_path, "wb") as f:
                     f.write(z.read(kml))
+    else:
+        ov_path = None
 
     # ============================================================
     # Run cached generator (no recomputation, no reload on download)
     # ============================================================
-    outputs = generate_all_outputs(
-        aoi_path, ov_path,
-        st.session_state["user_inputs"],
-        cell_size, title_text, density, area_invasive
-    )
+    try:
+        outputs = generate_all_outputs(
+            aoi_path, ov_path,
+            st.session_state["user_inputs"],
+            cell_size, title_text, density, area_invasive
+        )
+    except ValueError as e:
+        st.error(f"❌ {e}")
+        st.stop()
+
     for k, v in outputs.items():
         st.session_state[k] = v
 
@@ -661,6 +686,11 @@ if st.session_state.get("generated", False):
     m = folium.Map(location=[11, 78.5], zoom_start=8)
 
     gdf_for_bounds = read_kml_safely(aoi_path)
+    gdf_for_bounds = clean_polygon_gdf(gdf_for_bounds)
+    if gdf_for_bounds is None or gdf_for_bounds.empty:
+        st.error("AOI file has no valid polygon geometries for map preview.")
+        st.stop()
+
     aoi_union = unary_union(gdf_for_bounds.geometry)
 
     # AOI boundary
@@ -728,29 +758,3 @@ else:
 
 # Optional: Hide Streamlit spinner for smoother UI
 st.markdown("<style>.stSpinner{display:none}</style>", unsafe_allow_html=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
