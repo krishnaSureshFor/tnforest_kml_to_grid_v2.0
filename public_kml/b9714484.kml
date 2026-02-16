@@ -1,0 +1,2238 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ns0:kml xmlns:ns0="http://www.opengis.net/kml/2.2">
+  <ns0:Document>
+    <ns0:name>Labeled Grid + Overlay</ns0:name>
+    <ns0:description>Developed by Krishna</ns0:description>
+    <ns0:Style id="gridStyle">
+      <ns0:LineStyle>
+        <ns0:color>ff0000ff</ns0:color>
+        <ns0:width>1</ns0:width>
+      </ns0:LineStyle>
+      <ns0:PolyStyle>
+        <ns0:fill>0</ns0:fill>
+      </ns0:PolyStyle>
+      <ns0:BalloonStyle>
+        <ns0:text>&lt;![CDATA[&lt;b&gt;Grid ID:&lt;/b&gt; $[name]&lt;br&gt;&lt;b&gt;Range:&lt;/b&gt; Thumbal&lt;br&gt;&lt;b&gt;RF/RL:&lt;/b&gt; Mithikuttai RF&lt;br&gt;&lt;b&gt;Beat:&lt;/b&gt; Mithikuttai&lt;br&gt;&lt;b&gt;Year:&lt;/b&gt; &lt;br&gt;&lt;b&gt;Area (Ha):&lt;/b&gt; $[area_ha]&lt;br&gt;</ns0:text>
+      </ns0:BalloonStyle>
+    </ns0:Style>
+    <ns0:Style id="overlayStyle">
+      <ns0:LineStyle>
+        <ns0:color>ff00d7ff</ns0:color>
+        <ns0:width>3</ns0:width>
+      </ns0:LineStyle>
+      <ns0:PolyStyle>
+        <ns0:fill>0</ns0:fill>
+      </ns0:PolyStyle>
+    </ns0:Style>
+    <ns0:Placemark>
+      <ns0:name>1</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.01</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 1 — Area: 0.01 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.3971685841789,11.821877332332098,0 78.39717035827401,11.821689677815078,0 78.397077792652,11.821876499336016,0 78.3971685841789,11.821877332332098,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>2</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.34</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 2 — Area: 0.34 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.3971600428611,11.822780743620285,0 78.3971685841789,11.821877332332098,0 78.397077792652,11.821876499336016,0 78.39663215873861,11.822775899606464,0 78.3971600428611,11.822780743620285,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>3</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.81</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 3 — Area: 0.81 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39715150084388,11.823684154845001,0 78.3971600428611,11.822780743620285,0 78.39663215873861,11.822775899606464,0 78.39623536432556,11.823576722669777,0 78.39626333489068,11.823676003606133,0 78.39715150084388,11.823684154845001,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>4</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.82</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 4 — Area: 0.82 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39714295812722,11.824587566006247,0 78.39715150084388,11.823684154845001,0 78.39626333489068,11.823676003606133,0 78.39651853674837,11.824581835170534,0 78.39714295812722,11.824587566006247,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>5</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.54</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 5 — Area: 0.54 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39713441471112,11.825490977104009,0 78.39714295812722,11.824587566006247,0 78.39651853674837,11.824581835170534,0 78.39677373969089,11.82548766680708,0 78.39713441471112,11.825490977104009,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>6</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.23</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 6 — Area: 0.23 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39713441471112,11.825490977104009,0 78.39677373969089,11.82548766680708,0 78.39695993203344,11.826148545965518,0 78.39712622354706,11.826357070318092,0 78.39713441471112,11.825490977104009,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>7</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.81</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 7 — Area: 0.81 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.3971685841789,11.821877332332098,0 78.39808565197934,11.821885744637608,0 78.39809389896551,11.821013087133158,0 78.39748740434814,11.821049793616499,0 78.39717035827401,11.821689677815078,0 78.3971685841789,11.821877332332098,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>8</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 8 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.3971685841789,11.821877332332098,0 78.3971600428611,11.822780743620285,0 78.39807711366265,11.822789156586554,0 78.39808565197934,11.821885744637608,0 78.3971685841789,11.821877332332098,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>9</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 9 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.3971600428611,11.822780743620285,0 78.39715150084388,11.823684154845001,0 78.3980685746468,11.823692568472039,0 78.39807711366265,11.822789156586554,0 78.3971600428611,11.822780743620285,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>10</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 10 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39715150084388,11.823684154845001,0 78.39714295812722,11.824587566006247,0 78.39806003493176,11.824595980294049,0 78.3980685746468,11.823692568472039,0 78.39715150084388,11.823684154845001,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>11</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 11 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39714295812722,11.824587566006247,0 78.39713441471112,11.825490977104009,0 78.39805149451752,11.825499392052583,0 78.39806003493176,11.824595980294049,0 78.39714295812722,11.824587566006247,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>12</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 12 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39804295340406,11.826402803747644,0 78.39805149451752,11.825499392052583,0 78.39713441471112,11.825490977104009,0 78.39712622354706,11.826357070318092,0 78.39715620537332,11.826394666552748,0 78.39804295340406,11.826402803747644,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>13</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.57</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 13 — Area: 0.57 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39803441159137,11.82730621537922,0 78.39804295340406,11.826402803747644,0 78.39715620537332,11.826394666552748,0 78.39788202483894,11.827304817102503,0 78.39803441159137,11.82730621537922,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>14</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.02</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 14 — Area: 0.02 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39803441159137,11.82730621537922,0 78.39788202483894,11.827304817102503,0 78.39803263900635,11.827493680824244,0 78.39803441159137,11.82730621537922,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>15</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.93</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 15 — Area: 0.93 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39808565197934,11.821885744637608,0 78.39900272047893,11.82189415398654,0 78.39900921686103,11.821206500782631,0 78.3985352150252,11.820986376812389,0 78.39809389896551,11.821013087133158,0 78.39808565197934,11.821885744637608,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>16</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 16 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39808565197934,11.821885744637608,0 78.39807711366265,11.822789156586554,0 78.39899418516339,11.82279756659601,0 78.39900272047893,11.82189415398654,0 78.39808565197934,11.821885744637608,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>17</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 17 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39807711366265,11.822789156586554,0 78.3980685746468,11.823692568472039,0 78.39898564914891,11.823700979142028,0 78.39899418516339,11.82279756659601,0 78.39807711366265,11.822789156586554,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>18</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 18 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.3980685746468,11.823692568472039,0 78.39806003493176,11.824595980294049,0 78.39897711243549,11.824604391624577,0 78.39898564914891,11.823700979142028,0 78.3980685746468,11.823692568472039,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>19</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 19 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39806003493176,11.824595980294049,0 78.39805149451752,11.825499392052583,0 78.39896857502312,11.825507804043657,0 78.39897711243549,11.824604391624577,0 78.39806003493176,11.824595980294049,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>20</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 20 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39805149451752,11.825499392052583,0 78.39804295340406,11.826402803747644,0 78.39896003691177,11.826411216399261,0 78.39896857502312,11.825507804043657,0 78.39805149451752,11.825499392052583,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>21</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 21 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39804295340406,11.826402803747644,0 78.39803441159137,11.82730621537922,0 78.39895149810145,11.827314628691385,0 78.39896003691177,11.826411216399261,0 78.39804295340406,11.826402803747644,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>22</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.75</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 22 — Area: 0.75 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39894295859214,11.82821804092002,0 78.39895149810145,11.827314628691385,0 78.39803441159137,11.82730621537922,0 78.39803263900635,11.827493680824244,0 78.39860784886214,11.828214966750206,0 78.39894295859214,11.82821804092002,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>23</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.08</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 23 — Area: 0.08 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39894295859214,11.82821804092002,0 78.39860784886214,11.828214966750206,0 78.3988869359081,11.82856492719495,0 78.39894017490361,11.828512517051692,0 78.39894295859214,11.82821804092002,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>24</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.53</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 24 — Area: 0.53 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39900272047893,11.82189415398654,0 78.39991978967745,11.821902560378883,0 78.3999223584941,11.821630556012456,0 78.39900921686103,11.821206500782631,0 78.39900272047893,11.82189415398654,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>25</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 25 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39900272047893,11.82189415398654,0 78.39899418516339,11.82279756659601,0 78.39991125736306,11.82280597364865,0 78.39991978967745,11.821902560378883,0 78.39900272047893,11.82189415398654,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>26</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 26 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39899418516339,11.82279756659601,0 78.39898564914891,11.823700979142028,0 78.39990272434997,11.823709386854969,0 78.39991125736306,11.82280597364865,0 78.39899418516339,11.82279756659601,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>27</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 27 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39898564914891,11.823700979142028,0 78.39897711243549,11.824604391624577,0 78.39989419063818,11.824612799997823,0 78.39990272434997,11.823709386854969,0 78.39898564914891,11.823700979142028,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>28</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 28 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39897711243549,11.824604391624577,0 78.39896857502312,11.825507804043657,0 78.3998856562277,11.825516213077206,0 78.39989419063818,11.824612799997823,0 78.39897711243549,11.824604391624577,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>29</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 29 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39896857502312,11.825507804043657,0 78.39896003691177,11.826411216399261,0 78.39987712111848,11.826419626093125,0 78.3998856562277,11.825516213077206,0 78.39896857502312,11.825507804043657,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>30</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 30 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39896003691177,11.826411216399261,0 78.39895149810145,11.827314628691385,0 78.39986858531053,11.827323039045563,0 78.39987712111848,11.826419626093125,0 78.39896003691177,11.826411216399261,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>31</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 31 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39895149810145,11.827314628691385,0 78.39894295859214,11.82821804092002,0 78.39986004880383,11.828226451934526,0 78.39986858531053,11.827323039045563,0 78.39895149810145,11.827314628691385,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>32</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.20</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 32 — Area: 0.20 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39986004880383,11.828226451934526,0 78.39894295859214,11.82821804092002,0 78.39894017490361,11.828512517051692,0 78.39897260976717,11.828480587134022,0 78.39906063413737,11.828394001635049,0 78.39915127291363,11.828304923277999,0 78.39916990708001,11.82828662450644,0 78.39946030145471,11.8283451033985,0 78.39985658535969,11.828592964846585,0 78.39986004880383,11.828226451934526,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>33</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.10</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 33 — Area: 0.10 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39991978967745,11.821902560378883,0 78.40048748100028,11.82190776268459,0 78.40044605324441,11.821873753652941,0 78.3999223584941,11.821630556012456,0 78.39991978967745,11.821902560378883,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>34</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.94</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 34 — Area: 0.94 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39991978967745,11.821902560378883,0 78.39991125736306,11.82280597364865,0 78.40082833026142,11.822814377744457,0 78.40083420260844,11.822192394213255,0 78.40048748100028,11.82190776268459,0 78.39991978967745,11.821902560378883,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>35</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 35 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39991125736306,11.82280597364865,0 78.39990272434997,11.823709386854969,0 78.40081980024974,11.823717791610845,0 78.40082833026142,11.822814377744457,0 78.39991125736306,11.82280597364865,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>36</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 36 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39990272434997,11.823709386854969,0 78.39989419063818,11.824612799997823,0 78.40081126953959,11.824621205413768,0 78.40081980024974,11.823717791610845,0 78.39990272434997,11.823709386854969,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>37</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 37 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39989419063818,11.824612799997823,0 78.3998856562277,11.825516213077206,0 78.40080273813099,11.825524619153231,0 78.40081126953959,11.824621205413768,0 78.39989419063818,11.824612799997823,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>38</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 38 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.3998856562277,11.825516213077206,0 78.39987712111848,11.826419626093125,0 78.4007942060239,11.826428032829229,0 78.40080273813099,11.825524619153231,0 78.3998856562277,11.825516213077206,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>39</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 39 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39987712111848,11.826419626093125,0 78.39986858531053,11.827323039045563,0 78.40078567321834,11.827331446441754,0 78.4007942060239,11.826428032829229,0 78.39987712111848,11.826419626093125,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>40</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 40 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.39986858531053,11.827323039045563,0 78.39986004880383,11.828226451934526,0 78.40077713971428,11.828234859990802,0 78.40078567321834,11.827331446441754,0 78.39986858531053,11.827323039045563,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>41</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.72</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 41 — Area: 0.72 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4007686055117,11.829138273476373,0 78.40077713971428,11.828234859990802,0 78.39986004880383,11.828226451934526,0 78.39985658535969,11.828592964846585,0 78.40072783899807,11.82913789975641,0 78.4007686055117,11.829138273476373,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>42</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 42 — Area: 0.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4007686055117,11.829138273476373,0 78.40072783899807,11.82913789975641,0 78.4007683695588,11.829163249923335,0 78.4007686055117,11.829138273476373,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>43</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.29</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 43 — Area: 0.29 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40082833026142,11.822814377744457,0 78.40160048757082,11.822821451529661,0 78.40083420260844,11.822192394213255,0 78.40082833026142,11.822814377744457,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>44</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.99</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 44 — Area: 0.99 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40082833026142,11.822814377744457,0 78.40081980024974,11.823717791610845,0 78.40173687684793,11.823726193409643,0 78.40174430210416,11.822939511020776,0 78.40160048757082,11.822821451529661,0 78.40082833026142,11.822814377744457,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>45</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 45 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40081980024974,11.823717791610845,0 78.40081126953959,11.824621205413768,0 78.40172834913946,11.82462960787241,0 78.40173687684793,11.823726193409643,0 78.40081980024974,11.823717791610845,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>46</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 46 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40081126953959,11.824621205413768,0 78.40080273813099,11.825524619153231,0 78.40171982073277,11.825533022271717,0 78.40172834913946,11.82462960787241,0 78.40081126953959,11.824621205413768,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>47</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 47 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40080273813099,11.825524619153231,0 78.4007942060239,11.826428032829229,0 78.40171129162782,11.826436436607562,0 78.40171982073277,11.825533022271717,0 78.40080273813099,11.825524619153231,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>48</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 48 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4007942060239,11.826428032829229,0 78.40078567321834,11.827331446441754,0 78.40170276182465,11.82733985087994,0 78.40171129162782,11.826436436607562,0 78.4007942060239,11.826428032829229,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>49</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 49 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40078567321834,11.827331446441754,0 78.40077713971428,11.828234859990802,0 78.40169423132323,11.828243265088846,0 78.40170276182465,11.82733985087994,0 78.40078567321834,11.827331446441754,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>50</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 50 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40077713971428,11.828234859990802,0 78.4007686055117,11.829138273476373,0 78.40168570012355,11.829146679234277,0 78.40169423132323,11.828243265088846,0 78.40077713971428,11.828234859990802,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>51</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.34</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 51 — Area: 0.34 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40168570012355,11.829146679234277,0 78.4007686055117,11.829138273476373,0 78.4007683695588,11.829163249923335,0 78.40168015792169,11.829733532838,0 78.40168570012355,11.829146679234277,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>52</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.46</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 52 — Area: 0.46 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40173687684793,11.823726193409643,0 78.40265395414436,11.82373459225136,0 78.40265440673959,11.82368662590788,0 78.40174430210416,11.822939511020776,0 78.40173687684793,11.823726193409643,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>53</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 53 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40173687684793,11.823726193409643,0 78.40172834913946,11.82462960787241,0 78.40264542943754,11.824638007373734,0 78.40265395414436,11.82373459225136,0 78.40173687684793,11.823726193409643,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>54</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 54 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40172834913946,11.82462960787241,0 78.40171982073277,11.825533022271717,0 78.40263690403276,11.825541422432652,0 78.40264542943754,11.824638007373734,0 78.40172834913946,11.82462960787241,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>55</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 55 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40171982073277,11.825533022271717,0 78.40171129162782,11.826436436607562,0 78.40262837792999,11.826444837428113,0 78.40263690403276,11.825541422432652,0 78.40171982073277,11.825533022271717,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>56</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 56 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40171129162782,11.826436436607562,0 78.40170276182465,11.82733985087994,0 78.40261985112923,11.827348252360116,0 78.40262837792999,11.826444837428113,0 78.40171129162782,11.826436436607562,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>57</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 57 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40170276182465,11.82733985087994,0 78.40169423132323,11.828243265088846,0 78.40261132363045,11.828251667228646,0 78.40261985112923,11.827348252360116,0 78.40170276182465,11.82733985087994,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>58</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 58 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40169423132323,11.828243265088846,0 78.40168570012355,11.829146679234277,0 78.40260279543367,11.829155082033703,0 78.40261132363045,11.828251667228646,0 78.40169423132323,11.828243265088846,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>59</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.90</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 59 — Area: 0.90 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40259426653884,11.830058496775283,0 78.40260279543367,11.829155082033703,0 78.40168570012355,11.829146679234277,0 78.40168015792169,11.829733532838,0 78.40214151705186,11.830022090560618,0 78.40217390512952,11.830054645331785,0 78.40259426653884,11.830058496775283,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>60</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.11</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 60 — Area: 0.11 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40259426653884,11.830058496775283,0 78.40217390512952,11.830054645331785,0 78.40259035088681,11.830473233556418,0 78.40259426653884,11.830058496775283,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>61</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 61 — Area: 0.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40265395414436,11.82373459225136,0 78.40271350182826,11.82373513750268,0 78.40265440673959,11.82368662590788,0 78.40265395414436,11.82373459225136,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>62</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.64</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 62 — Area: 0.64 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40265395414436,11.82373459225136,0 78.40264542943754,11.824638007373734,0 78.4035625104336,11.82464640391773,0 78.4035645793127,11.824427081610166,0 78.40325129710942,11.824176616431497,0 78.40271350182826,11.82373513750268,0 78.40265395414436,11.82373459225136,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>63</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 63 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40264542943754,11.824638007373734,0 78.40263690403276,11.825541422432652,0 78.40355398803074,11.82554981963603,0 78.4035625104336,11.82464640391773,0 78.40264542943754,11.824638007373734,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>64</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 64 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40263690403276,11.825541422432652,0 78.40262837792999,11.826444837428113,0 78.40354546493015,11.826453235290874,0 78.40355398803074,11.82554981963603,0 78.40263690403276,11.825541422432652,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>65</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 65 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40262837792999,11.826444837428113,0 78.40261985112923,11.827348252360116,0 78.40353694113179,11.827356650882264,0 78.40354546493015,11.826453235290874,0 78.40262837792999,11.826444837428113,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>66</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 66 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40261985112923,11.827348252360116,0 78.40261132363045,11.828251667228646,0 78.40352841663568,11.828260066410184,0 78.40353694113179,11.827356650882264,0 78.40261985112923,11.827348252360116,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>67</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 67 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40261132363045,11.828251667228646,0 78.40260279543367,11.829155082033703,0 78.4035198914418,11.82916348187464,0 78.40352841663568,11.828260066410184,0 78.40261132363045,11.828251667228646,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>68</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 68 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40260279543367,11.829155082033703,0 78.40259426653884,11.830058496775283,0 78.40351136555014,11.830066897275621,0 78.4035198914418,11.82916348187464,0 78.40260279543367,11.829155082033703,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>69</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.85</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 69 — Area: 0.85 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40350283896069,11.830970312613125,0 78.40351136555014,11.830066897275621,0 78.40259426653884,11.830058496775283,0 78.40259035088681,11.830473233556418,0 78.40308104408251,11.830966449107938,0 78.40350283896069,11.830970312613125,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>70</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.11</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 70 — Area: 0.11 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40350283896069,11.830970312613125,0 78.40308104408251,11.830966449107938,0 78.40349891103357,11.83138646227781,0 78.40350283896069,11.830970312613125,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>71</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.04</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 71 — Area: 0.04 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4035625104336,11.82464640391773,0 78.40384210994304,11.824648963265208,0 78.4035645793127,11.824427081610166,0 78.4035625104336,11.82464640391773,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>72</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.81</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 72 — Area: 0.81 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4035625104336,11.82464640391773,0 78.40355398803074,11.82554981963603,0 78.40447107272647,11.825558213881834,0 78.40447487662742,11.825154848841764,0 78.40384210994304,11.824648963265208,0 78.4035625104336,11.82464640391773,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>73</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 73 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40355398803074,11.82554981963603,0 78.40354546493015,11.826453235290874,0 78.40446255262805,11.826461630195833,0 78.40447107272647,11.825558213881834,0 78.40355398803074,11.82554981963603,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>74</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 74 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40354546493015,11.826453235290874,0 78.40353694113179,11.827356650882264,0 78.40445403183212,11.827365046446378,0 78.40446255262805,11.826461630195833,0 78.40354546493015,11.826453235290874,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>75</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 75 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40353694113179,11.827356650882264,0 78.40352841663568,11.828260066410184,0 78.40444551033869,11.828268462633458,0 78.40445403183212,11.827365046446378,0 78.40353694113179,11.827356650882264,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>76</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 76 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40352841663568,11.828260066410184,0 78.4035198914418,11.82916348187464,0 78.40443698814772,11.829171878757078,0 78.40444551033869,11.828268462633458,0 78.40352841663568,11.828260066410184,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>77</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 77 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4035198914418,11.82916348187464,0 78.40351136555014,11.830066897275621,0 78.40442846525923,11.83007529481723,0 78.40443698814772,11.829171878757078,0 78.4035198914418,11.82916348187464,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>78</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 78 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40351136555014,11.830066897275621,0 78.40350283896069,11.830970312613125,0 78.40441994167318,11.830978710813906,0 78.40442846525923,11.83007529481723,0 78.40351136555014,11.830066897275621,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>79</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.85</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 79 — Area: 0.85 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40441141738958,11.831882126747107,0 78.40441994167318,11.830978710813906,0 78.40350283896069,11.830970312613125,0 78.40349891103357,11.83138646227781,0 78.40398818903098,11.831878251187618,0 78.40441141738958,11.831882126747107,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>80</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.11</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 80 — Area: 0.11 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40441141738958,11.831882126747107,0 78.40398818903098,11.831878251187618,0 78.40440747719481,11.832299689297098,0 78.40441141738958,11.831882126747107,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>81</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.13</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 81 — Area: 0.13 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40447107272647,11.825558213881834,0 78.40498529792926,11.825562919383293,0 78.40447487662742,11.825154848841764,0 78.40447107272647,11.825558213881834,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>82</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.92</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 82 — Area: 0.92 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40447107272647,11.825558213881834,0 78.40446255262805,11.826461630195833,0 78.40537964102344,11.826470022142978,0 78.4053851789782,11.825882614125208,0 78.40498529792926,11.825562919383293,0 78.40447107272647,11.825558213881834,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>83</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 83 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40446255262805,11.826461630195833,0 78.40445403183212,11.827365046446378,0 78.40537112322997,11.827373439052444,0 78.40537964102344,11.826470022142978,0 78.40446255262805,11.826461630195833,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>84</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 84 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40445403183212,11.827365046446378,0 78.40444551033869,11.828268462633458,0 78.40536260473922,11.828276855898455,0 78.40537112322997,11.827373439052444,0 78.40445403183212,11.827365046446378,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>85</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 85 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40444551033869,11.828268462633458,0 78.40443698814772,11.829171878757078,0 78.4053540855512,11.829180272681006,0 78.40536260473922,11.828276855898455,0 78.40444551033869,11.828268462633458,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>86</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 86 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40443698814772,11.829171878757078,0 78.40442846525923,11.83007529481723,0 78.40534556566585,11.830083689400093,0 78.4053540855512,11.829180272681006,0 78.40443698814772,11.829171878757078,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>87</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 87 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40442846525923,11.83007529481723,0 78.40441994167318,11.830978710813906,0 78.40533704508323,11.830987106055712,0 78.40534556566585,11.830083689400093,0 78.40442846525923,11.83007529481723,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>88</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 88 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40441994167318,11.830978710813906,0 78.40441141738958,11.831882126747107,0 78.4053285238033,11.831890522647857,0 78.40533704508323,11.830987106055712,0 78.40441994167318,11.830978710813906,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>89</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.86</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 89 — Area: 0.86 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40532000182604,11.832793939176522,0 78.4053285238033,11.831890522647857,0 78.40441141738958,11.831882126747107,0 78.40440747719481,11.832299689297098,0 78.40489533997547,11.832790051570125,0 78.40532000182604,11.832793939176522,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>90</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.11</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 90 — Area: 0.11 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40532000182604,11.832793939176522,0 78.40489533997547,11.832790051570125,0 78.40531604937105,11.833212914613577,0 78.40532000182604,11.832793939176522,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>91</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.27</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 91 — Area: 0.27 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40537964102344,11.826470022142978,0 78.40612849385816,11.826476872428392,0 78.4053851789782,11.825882614125208,0 78.40537964102344,11.826470022142978,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>92</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.99</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 92 — Area: 0.99 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40537964102344,11.826470022142978,0 78.40537112322997,11.827373439052444,0 78.40628821532509,11.827381828700457,0 78.40629548636524,11.826610377459936,0 78.40612849385816,11.826476872428392,0 78.40537964102344,11.826470022142978,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>93</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 93 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40537112322997,11.827373439052444,0 78.40536260473922,11.828276855898455,0 78.40627969983703,11.828285246205164,0 78.40628821532509,11.827381828700457,0 78.40537112322997,11.827373439052444,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>94</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 94 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40536260473922,11.828276855898455,0 78.4053540855512,11.829180272681006,0 78.40627118365194,11.829188663646415,0 78.40627969983703,11.828285246205164,0 78.40536260473922,11.828276855898455,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>95</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 95 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4053540855512,11.829180272681006,0 78.40534556566585,11.830083689400093,0 78.4062626667698,11.830092081024207,0 78.40627118365194,11.829188663646415,0 78.4053540855512,11.829180272681006,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>96</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 96 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40534556566585,11.830083689400093,0 78.40533704508323,11.830987106055712,0 78.40625414919062,11.83099549833853,0 78.4062626667698,11.830092081024207,0 78.40534556566585,11.830083689400093,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>97</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 97 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40533704508323,11.830987106055712,0 78.4053285238033,11.831890522647857,0 78.40624563091436,11.831898915589388,0 78.40625414919062,11.83099549833853,0 78.40533704508323,11.830987106055712,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>98</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 98 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4053285238033,11.831890522647857,0 78.40532000182604,11.832793939176522,0 78.40623711194101,11.83280233277677,0 78.40624563091436,11.831898915589388,0 78.4053285238033,11.831890522647857,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>99</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.36</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 99 — Area: 0.36 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40623711194101,11.83280233277677,0 78.40532000182604,11.832793939176522,0 78.40531604937105,11.833212914613577,0 78.4054669202716,11.833364557430572,0 78.40560751889231,11.83329827594331,0 78.40567735196775,11.83322898957251,0 78.40574716860593,11.83315958950053,0 78.40583408611153,11.83306900851277,0 78.40592092595845,11.83297851002792,0 78.40599018307292,11.83290467286883,0 78.40604131612518,11.832811355323757,0 78.40623476067991,11.833051665487352,0 78.40623711194101,11.83280233277677,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>100</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.46</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 100 — Area: 0.46 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40628821532509,11.827381828700457,0 78.40720530811723,11.827390215390402,0 78.40720579878881,11.827338138845382,0 78.40629548636524,11.826610377459936,0 78.40628821532509,11.827381828700457,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>101</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 101 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40628821532509,11.827381828700457,0 78.40627969983703,11.828285246205164,0 78.40719679563188,11.828293633553573,0 78.40720530811723,11.827390215390402,0 78.40628821532509,11.827381828700457,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>102</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 102 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40627969983703,11.828285246205164,0 78.40627118365194,11.829188663646415,0 78.40718828244974,11.82919705165329,0 78.40719679563188,11.828293633553573,0 78.40627969983703,11.828285246205164,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>103</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 103 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40627118365194,11.829188663646415,0 78.4062626667698,11.830092081024207,0 78.4071797685708,11.830100469689556,0 78.40718828244974,11.82919705165329,0 78.40627118365194,11.829188663646415,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>104</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 104 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4062626667698,11.830092081024207,0 78.40625414919062,11.83099549833853,0 78.40717125399505,11.831003887662357,0 78.4071797685708,11.830100469689556,0 78.4062626667698,11.830092081024207,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>105</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 105 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40625414919062,11.83099549833853,0 78.40624563091436,11.831898915589388,0 78.40716273872248,11.831907305571692,0 78.40717125399505,11.831003887662357,0 78.40625414919062,11.83099549833853,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>106</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 106 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40624563091436,11.831898915589388,0 78.40623711194101,11.83280233277677,0 78.40715422275308,11.832810723417559,0 78.40716273872248,11.831907305571692,0 78.40624563091436,11.831898915589388,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>107</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.55</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 107 — Area: 0.55 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40715422275308,11.832810723417559,0 78.40623711194101,11.83280233277677,0 78.40623476067991,11.833051665487352,0 78.40643462413641,11.833299949165403,0 78.40714881661704,11.83338419575181,0 78.40715422275308,11.832810723417559,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>108</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 108 — Area: 0.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40720530811723,11.827390215390402,0 78.40727169773024,11.827390822399396,0 78.40720579878881,11.827338138845382,0 78.40720530811723,11.827390215390402,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>109</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.61</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 109 — Area: 0.61 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40720530811723,11.827390215390402,0 78.40719679563188,11.828293633553573,0 78.40811389212351,11.828302017943672,0 78.40811496104965,11.828188538258082,0 78.40744431371458,11.827528821789901,0 78.40727169773024,11.827390822399396,0 78.40720530811723,11.827390215390402,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>110</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 110 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40719679563188,11.828293633553573,0 78.40718828244974,11.82919705165329,0 78.40810538194434,11.829205436701628,0 78.40811389212351,11.828302017943672,0 78.40719679563188,11.828293633553573,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>111</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 111 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40718828244974,11.82919705165329,0 78.4071797685708,11.830100469689556,0 78.4080968710686,11.83010885539613,0 78.40810538194434,11.829205436701628,0 78.40718828244974,11.82919705165329,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>112</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 112 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4071797685708,11.830100469689556,0 78.40717125399505,11.831003887662357,0 78.4080883594963,11.831012274027177,0 78.4080968710686,11.83010885539613,0 78.4071797685708,11.830100469689556,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>113</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 113 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40717125399505,11.831003887662357,0 78.40716273872248,11.831907305571692,0 78.40807984722744,11.83191569259476,0 78.4080883594963,11.831012274027177,0 78.40717125399505,11.831003887662357,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>114</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 114 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40716273872248,11.831907305571692,0 78.40715422275308,11.832810723417559,0 78.40807133426199,11.832819111098878,0 78.40807984722744,11.83191569259476,0 78.40716273872248,11.831907305571692,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>115</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.69</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 115 — Area: 0.69 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40807133426199,11.832819111098878,0 78.40715422275308,11.832810723417559,0 78.40714881661704,11.83338419575181,0 78.40806499063481,11.833492265558545,0 78.40807133426199,11.832819111098878,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>116</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.01</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 116 — Area: 0.01 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40811389212351,11.828302017943672,0 78.40823141341166,11.828303092146664,0 78.40811496104965,11.828188538258082,0 78.40811389212351,11.828302017943672,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>117</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.63</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 117 — Area: 0.63 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40811389212351,11.828302017943672,0 78.40810538194434,11.829205436701628,0 78.40902248213548,11.829213818791413,0 78.40902371896978,11.829082477793643,0 78.40823141341166,11.828303092146664,0 78.40811389212351,11.828302017943672,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>118</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 118 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40810538194434,11.829205436701628,0 78.4080968710686,11.83010885539613,0 78.40901397426298,11.83011723814392,0 78.40902248213548,11.829213818791413,0 78.40810538194434,11.829205436701628,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>119</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 119 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4080968710686,11.83010885539613,0 78.4080883594963,11.831012274027177,0 78.40900546569415,11.831020657432978,0 78.40901397426298,11.83011723814392,0 78.4080968710686,11.83010885539613,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>120</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 120 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.4080883594963,11.831012274027177,0 78.40807984722744,11.83191569259476,0 78.40899695642898,11.831924076658579,0 78.40900546569415,11.831020657432978,0 78.4080883594963,11.831012274027177,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>121</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 121 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40807984722744,11.83191569259476,0 78.40807133426199,11.832819111098878,0 78.40898844646749,11.832827495820718,0 78.40899695642898,11.831924076658579,0 78.40807984722744,11.83191569259476,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>122</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.59</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 122 — Area: 0.59 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40898844646749,11.832827495820718,0 78.40807133426199,11.832819111098878,0 78.40806499063481,11.833492265558545,0 78.40848002644249,11.83354122126101,0 78.40898764400931,11.832912681117806,0 78.40898844646749,11.832827495820718,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>123</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.01</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 123 — Area: 0.01 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40902248213548,11.829213818791413,0 78.40915850133025,11.829215061723824,0 78.40902371896978,11.829082477793643,0 78.40902248213548,11.829213818791413,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>124</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.64</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 124 — Area: 0.64 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40902248213548,11.829213818791413,0 78.40901397426298,11.83011723814392,0 78.40993107815366,11.830125617932916,0 78.40993248280456,11.829976415599477,0 78.40915850133025,11.829215061723824,0 78.40902248213548,11.829213818791413,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>125</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>1.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 125 — Area: 1.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40993107815366,11.830125617932916,0 78.40901397426298,11.83011723814392,0 78.40900546569415,11.831020657432978,0 78.40987327473285,11.831028587475453,0 78.40992394310808,11.830883472909461,0 78.40993107815366,11.830125617932916,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>126</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.84</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 126 — Area: 0.84 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40900546569415,11.831020657432978,0 78.40899695642898,11.831924076658579,0 78.40966812724996,11.831930210514214,0 78.40985650598928,11.83107661322162,0 78.40987327473285,11.831028587475453,0 78.40900546569415,11.831020657432978,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>127</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.45</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 127 — Area: 0.45 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40899695642898,11.831924076658579,0 78.40898844646749,11.832827495820718,0 78.40905594227077,11.83282811278566,0 78.40962565004374,11.832122685605759,0 78.40966812724996,11.831930210514214,0 78.40899695642898,11.831924076658579,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>128</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.00</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 128 — Area: 0.00 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40898844646749,11.832827495820718,0 78.40898764400931,11.832912681117806,0 78.40905594227077,11.83282811278566,0 78.40898844646749,11.832827495820718,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>129</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.01</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 129 — Area: 0.01 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40993107815366,11.830125617932916,0 78.41008559540455,11.83012702950067,0 78.40993248280456,11.829976415599477,0 78.40993107815366,11.830125617932916,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+    <ns0:Placemark>
+      <ns0:name>130</ns0:name>
+      <ns0:styleUrl>#gridStyle</ns0:styleUrl>
+      <ns0:ExtendedData>
+        <ns0:Data name="area_ha">
+          <ns0:value>0.11</ns0:value>
+        </ns0:Data>
+      </ns0:ExtendedData>
+      <ns0:description>Grid 130 — Area: 0.11 ha</ns0:description>
+      <ns0:Polygon>
+        <ns0:outerBoundaryIs>
+          <ns0:LinearRing>
+            <ns0:coordinates>78.40993107815366,11.830125617932916,0 78.40992394310808,11.830883472909461,0 78.4101618665011,11.83020205582219,0 78.41008559540455,11.83012702950067,0 78.40993107815366,11.830125617932916,0</ns0:coordinates>
+          </ns0:LinearRing>
+        </ns0:outerBoundaryIs>
+      </ns0:Polygon>
+    </ns0:Placemark>
+  </ns0:Document>
+</ns0:kml>
